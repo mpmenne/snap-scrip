@@ -1,0 +1,19 @@
+<div>
+  <div ng-controller="ScripController as scripCtrl">
+    <div class="ui grid">
+      <div class="sixteen wide aligned center column">
+        <div class="ui huge icon input search" >
+          <input type="text" ng-model="searchCriteria" placeholder="Search for anything...">
+          <i class="circular search icon"></i>
+        </div>
+        <i class="cart huge link icon" ng-click="baseCtrl.viewCart()"></i>
+      </div>
+    </div>
+
+    <div class="ui large images centered">
+      <gcard ng-repeat="giftcard in scripCtrl.allCards() | filter:searchCriteria " data="giftcard">
+
+      </gcard>
+    </div>
+  </div>
+</div>

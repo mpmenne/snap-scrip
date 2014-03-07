@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" ng-app="snapscripApp" ng-controller="BaseController as baseCtrl">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+
+  <!--<link href="semantic/packaged/css/semantic.min.css" rel="stylesheet" type="text/css"/>-->
+  <link rel="stylesheet" type="text/css" class="ui" href="semantic/packaged/css/semantic.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="css/app.css"/>
+
+</head>
+
+<body id="example" class="progress" style>
+
+  <div class="masthead segment">
+    <div class="ui page grid">
+      <div class="column">
+        <div class="introduction">
+          <h1 class="ui link header" ng-click="baseCtrl.viewHome()">Snap Scrip</h1>
+          <p></p>
+          <h2 class="ui header"> Order Online.  Pick up at your Rectory</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui page overview segment">
+    <div class="ui two wide column"></div>
+    <div class="twelve wide column">
+      <div class="ui three column center aligned stackable divided grid">
+        <div class="column">
+          <div class="ui icon huge header">
+            <i class="circular gift link icon" ng-click="baseCtrl.viewHome()"></i>Shop
+            <p class="sub header">Browse all of your Parish Scrip Giftcards</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui icon huge header">
+            <i class="circular cart link icon" ng-click="baseCtrl.viewCart()"></i>Buy Online
+            <p class="sub header">Send your order and payment directly to your Parish</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui icon huge header">
+            <i class="circular home link icon" ng-click="baseCtrl.viewCart()"></i>Pick Up
+            <p class="sub header">Pick up your giftcards after mass or from the Rectory</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ui-view></div>
+
+  <div class="ui horizontal divider">
+    <i class="circular heart icon"></i>
+  </div>
+
+  <div class="">
+    <div class="ui center aligned huge header">$14,365</div>
+    <h6 class="ui center aligned header">raised for <span style="color: #00B5AD">St. Joan of Arc Grade School</span> this year</h6>
+  </div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  -->
+  <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+
+  <!--These jspdf libs kind of scare me....-->
+  <script type="text/javascript" src="lib/jspdf/jspdf.js"></script>
+  <script type="text/javascript" src="lib/jspdf/libs/FileSaver.js/FileSaver.js"></script>
+  <script type="text/javascript" src="lib/jspdf/libs/Blob.js/BlobBuilder.js"></script>
+  <script type="text/javascript" src="lib/jspdf/jspdf.plugin.addimage.js"></script>
+
+  <script type="text/javascript" src="lib/lodash/lodash.js"></script>
+  <script type="text/javascript" src="lib/angular/angular.js"></script>
+  <script type="text/javascript" src="lib/angular/angular-ui-router.js"></script>
+  <script type="text/javascript" src="js/services.js"></script>
+  <script type="text/javascript" src="js/controllers.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+
+    <script type="text/javascript" src="semantic/packaged/javascript/semantic.js"></script>
+    <script type="text/javascript" src="semantic/packaged/javascript/semantic.min.js"></script>
+</body>
+</html>

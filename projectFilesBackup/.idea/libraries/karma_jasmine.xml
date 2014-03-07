@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="karma-jasmine" type="javaScript">
+    <CLASSES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/node_modules/karma-jasmine/lib/jasmine.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/karma-jasmine/lib/index.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/karma-jasmine/lib/adapter.js" />
+    </SOURCES>
+  </library>
+</component>

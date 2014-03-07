@@ -1,0 +1,72 @@
+<div>
+  <div class="ui horizontal divider">
+    <i class="circular down icon"></i>
+  </div>
+  <div class="centermargins">
+
+    <div class="ui four large steps">
+      <div class="ui step">
+        Order Options
+      </div>
+      <div class="ui active step">
+        Order Review
+      </div>
+      <div class="ui disabled step">
+        Billing
+      </div>
+      <div class="ui disabled step">
+        Confirmation
+      </div>
+    </div>
+
+  <h2 class="ui center aligned fluid header">Order Review
+    <div class="sub header">Please take a second to ensure everything is correct</div>
+  </h2>
+  <div class="orderreview">
+    <div class="ui divided list">
+      <div class="item" ng-repeat="cartItem in allCartItems() | filter:giftCards">
+        <div class="right floated label">${{cartItem.value}}</div>
+        <div class="content">
+          {{cartItem.name}} ${{cartItem.value}} Gift Card
+        </div>
+      </div>
+      <div class="item" ng-repeat="cartItem in allCartItems() | filter:fees">
+        <div class="right floated label">${{cartItem.value}}</div>
+        <div class="content">
+          {{cartItem.name}}
+        </div>
+      </div>
+      <div class="item">
+        <div class="right floated header">${{allCartItems() | valueAggregate}}</div>
+        <div class="header content">
+          Total
+        </div>
+      </div>
+    </div>
+    <div class="ui large center aligned fluid checkbox">
+      <input type="checkbox" id="termsCheck" required>
+      <label for="termsCheck">I agree to the Snap-Scrip Terms and Conditions</label>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div class="ui button"ng-click="generatePdf()">Print Purchase Order</div>
+    <div class="ui grid">
+      <div class="row">
+        <div class="ten wide left aligned column">
+          <a class="ui left labeled icon button" href="/#/cart">
+            <i class="left arrow icon"></i>
+            Cancel Order
+          </a>
+        </div>
+        <div class="six wide right aligned column">
+          <a class="ui green right labeled icon button" href="/#/billing">
+            <i class="right arrow icon"></i>
+            Purchase Order
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

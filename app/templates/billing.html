@@ -1,0 +1,101 @@
+<div>
+  <div class="ui horizontal divider">
+    <i class="circular down icon"></i>
+  </div>
+  <div class="centermargins">
+
+    <div class="ui four large steps">
+      <div class="ui step" ng-click="base">
+        Order Options
+      </div>
+      <div class="ui step">
+        Order Review
+      </div>
+      <div class="ui active step">
+        Billing
+      </div>
+      <div class="ui disabled step">
+        Confirmation
+      </div>
+    </div>
+
+    <h2 class="ui center aligned fluid header">Billing
+      <div class="sub header">Please share some information to help complete your order</div>
+    </h2>
+
+    <div class="ui two column grid">
+      <div class="column">
+        <div class="ui fluid form segment">
+          <h3 class="ui header">Purchaser Information</h3>
+          <div class="two fields">
+            <div class="field">
+              <label>First Name</label>
+              <input placeholder="First Name" type="text">
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input placeholder="Last Name" type="text">
+            </div>
+          </div>
+          <div class="two fields">
+            <div class="field">
+              <label>Telephone Number</label>
+              <input placeholder="ex. (314) 111-111" type="tel" >
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input placeholder="Email" type="email">
+            </div>
+          </div>
+          <div class="grouped inline fields">
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="pickup">
+                <label>Pick up at Scrip Table after Mass on weekend</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="pickup">
+                <label>Pick up at Rectory</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="pickup">
+                <label>Send home with Child</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui fluid form segment">
+          <h3 class="ui header">Check Information</h3>
+          <p>Please make your check payable to <span class="bold">St. Joan of Arc</span> for <span class="bold">${{allCartItems() | valueAggregate}}</span></p>
+          <div class="two fields">
+            <div class="field">
+              <label>Check Amount</label>
+              <input placeholder="$" type="number" >
+            </div>
+            <div class="field">
+              <label>Check Number</label>
+              <input type="text">
+            </div>
+          </div>      </div>
+      </div>
+    </div>
+
+    <div class="ui grid">
+      <div class="row">
+        <div class="six wide right aligned column"></div>
+        <div class="six wide right aligned column">
+          <a class="ui green right labeled icon button" href="/#/confirmation">
+            <i class="right arrow icon"></i>
+            Complete Order
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

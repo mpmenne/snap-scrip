@@ -1,0 +1,98 @@
+<div>
+  <div class="ui horizontal divider">
+    <i class="circular down icon"></i>
+  </div>
+  <div class="centermargins">
+
+    <div class="ui green four large steps">
+      <div class="ui active step">
+        Order Options
+      </div>
+      <div class="ui disabled step">
+        Order Review
+      </div>
+      <div class="ui disabled step">
+        Billing
+      </div>
+      <div class="ui disabled step">
+        Confirmation
+      </div>
+    </div>
+
+    <h2 class="ui center aligned fluid header">Order options
+      <div class="sub header">How would you like process your order?</div>
+    </h2>
+
+    <div class="ui divided grid">
+      <div class="row" ng-class="{hovered: hover1, selectediv: clicked1}" ng-mouseenter="hover1 = true" ng-mouseleave="hover1 = false" ng-click="clicked1=!clicked1; clicked2=false; clicked3=false">
+        <div class="twelve wide column">
+           <h2 class="ui huge header">
+             <i class="print icon"></i>
+             <div class="content">
+               Print Online
+               <div class="sub header">Print your order now. Turn in your printed order form and a check to your Parish Rectory or School</div>
+               <div ng-class="{cantsee: !clicked1}">Great. Just print off this form</div>
+             </div>
+           </h2>
+        </div>
+        <div class="four right aligned wide column">
+          <h4 class="ui medium header">
+            Free
+          </h4>
+        </div>
+      </div>
+      <div class="row" ng-class="{hovered: hover2, selectediv: clicked2}" ng-mouseenter="hover2 = true" ng-mouseleave="hover2 = false" ng-click="clicked2=!clicked2; clicked1=false; clicked3=false">
+        <div class="twelve wide column">
+          <h2 class="ui huge header">
+            <i class="money icon"></i>
+            <div class="content">
+              Order Online with Electronic Check
+              <div class="sub header">Submit your order online. Your order and payment will be forwarded directly to your Parish Rectory or School</div>
+              <div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">Sorry!  We're still in Beta.</div>
+              <div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">Electronic Check payments coming soon.</div>
+              <div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">We're working on it :-)</div>
+            </div>
+          </h2>
+        </div>
+        <div class="four right aligned wide column">
+          <h4 class="ui medium header">
+            $1.00 Fee
+          </h4>
+        </div>
+      </div>
+      <div class="row" ng-class="{hovered: hover3, selectediv: clicked3}" ng-mouseenter="hover3 = true" ng-mouseleave="hover3 = false" ng-click="clicked3=!clicked3; clicked1=false; clicked2=false">
+        <div class="twelve wide column">
+          <h2 class="ui huge header">
+            <i class="payment icon"></i>
+            <div class="content">
+              Order Online with Credit Card
+              <div class="sub header">Submit your order online. Your order and payment will be forwarded directly to your Parish Rectory or School</div>
+              <div class="red" ng-class="{sorry: clicked3, cantsee: !clicked3}">Sorry!  We're still in Beta.</div>
+              <div class="red" ng-class="{sorry: clicked3, cantsee: !clicked3}">Credit Card payments coming soon.</div>
+              <div class="red" ng-class="{sorry: clicked3, cantsee: !clicked3}">We're working on it :-)</div>
+            </div>
+          </h2>
+        </div>
+        <div class="four right aligned wide column">
+              <h4 class="ui medium header">
+                $4.00 Fee
+              </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="two wide right aligned column">
+          <a class="ui left labeled icon button" href="/#/cart">
+            <i class="left arrow icon"></i>
+            Edit Cart
+          </a>
+        </div>
+        <div class="two left aligned wide column">
+          <a class="ui green right labeled icon button"  ng-click="addCheckProcessing()" ng-href="/#/review" ng-class="{disabled: !clicked1}">
+            <i class="right arrow icon"></i>
+            Review Order
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
