@@ -143,6 +143,27 @@ snapscripApp.filter('donationAggregate', function() {
     }, 0)).toFixed(2);
   }
 });
+snapscripApp.filter('orderAggregate', function() {
+  return function(orders) {
+    var totals = [];
+    var cardGroups = _.groupBy(orders, "name");
+    for (var cardName in cardGroups) {
+      var count = 0;
+      var totalValue = 0;
+      var cardOrders = _.filter(orders, function(order) { return order.name == cardName});
+      for (var cardOrderNumber in cardOrders) {
+        console.log(cardOrders);
+        console.log('cardOrder for ' + cardOrders[cardOrderNumber].name + '  ' + cardOrders[cardOrderNumber].value);
+        count++;
+        totalValue = totalValue + cardOrders[cardOrderNumber].value;
+      }
+      if (count) {
+        totals.push({name:cardName, total:totalValue, count:count});
+      }
+    }
+    return totals;
+  }
+});
 
 snapscripApp.directive('gcard', function($location) {
   var imgElement = angular.element("<img ng-class='imgClass' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()' data-content='This is where you buy buy buy' src='{{giftcard.path}}'>");
@@ -205,4 +226,40 @@ snapscripApp.factory('LocationService', function($location) {
       $location.path('/cart');
     }
   }
+});
+
+snapscripApp.controller('TestController', function($scope, PdfService) {
+  var testController = this;
+
+  $scope.pdfSource = 'admin.html';
+  $scope.PdfService = PdfService;
+
+  $scope.generatePdf = function(order) {
+    var pdfPromise = PdfService.getPdf(order)
+    pdfPromise.promise.then(function(pdf) {
+      $scope.pdfSource = pdf.output('datauristring');
+      $('iframe').attr('src', $scope.pdfSource);
+      console.log($scope.pdfSource);
+    });
+  }
+
+  $scope.testOrder = {
+    orderInformation: {
+      name: 'Megan Menne',
+      phoneNumber: '314 304 3148',
+      accountNumber: '123455',
+      routingNumber: '123423434535',
+      checkNumber: 1001
+    },
+    orders: [
+      {name:'Amazon', value:25},
+      {name:'Amazon', value:25},
+      {name:'Applebees', value:50},
+      {name:'Applebees', value:50},
+      {name:'Applebees', value:50}
+    ]
+  };
+
+  $scope.generatePdf($scope.testOrder);
+
 });

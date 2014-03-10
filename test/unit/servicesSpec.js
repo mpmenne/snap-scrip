@@ -9,6 +9,7 @@ describe('services', function() {
   var CartService;
   var $filter;
 
+  beforeEach(module('snapscripApp_controllers'));
   beforeEach(module('snapscripApp_services'));
   beforeEach(module('snapscripApp_filters'));
   beforeEach(inject(function(_CardService_, _PdfService_, _$httpBackend_, _CartService_, _$filter_) {
@@ -98,6 +99,12 @@ describe('services', function() {
       CartService.addItemToCart(giftcard1, 50);
       CartService.clearCart();
       expect(CartService.allCartItems().length).toBe(0);
+    });
+  });
+
+  describe('PdfService', function() {
+    it('PdfService should be injected', function() {
+      expect(PdfService).toBeDefined();
     });
   });
 });

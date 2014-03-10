@@ -15,4 +15,5 @@ describe('filter', function() {
       expect(deletedFilter([{'deleted':true}])).toEqual(true);
     }));
   });
+
 });
