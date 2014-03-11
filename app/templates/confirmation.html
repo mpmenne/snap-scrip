@@ -4,18 +4,15 @@
   </div>
   <div class="centermargins">
 
-    <div class="ui four large steps">
-      <div class="ui step">
+    <div class="ui three large steps">
+      <div class="ui centerAlignedStep step">
         Order Options
       </div>
-      <div class="ui step">
+      <div class="ui centerAlignedStep step">
         Order Review
       </div>
-      <div class="ui step">
-        Billing
-      </div>
-      <div class="ui active step">
-        Confirmation
+      <div class="ui centerAlignedStep active step">
+        Order Complete
       </div>
     </div>
 
@@ -25,14 +22,15 @@
   <div class="orderreview">
     <div class="ui grid">
       <div class="row">
-        <div class="eight wide column">
-          Order Confirmation Number:<h4 class="ui medium header">a2334</h4>
+        <div class="fluid center aligned column">
+          Confirmation Number:<h4 class="ui medium header">{{confirmationNumber}}</h4>
         </div>
       </div>
       <div class="row">
         <div class="fluid center aligned column">
           Your order will be avialable for pickup after
-          <h4 class="ui medium header">February 18th, 2013</h4>
+          <h4 class="ui medium header">March 16th, 2014</h4>
+          <p>(Please turn in the form below with payment to complete your order)</p>
         </div>
       </div>
       <div class="row">
@@ -40,6 +38,17 @@
           Thank You
         </div>
       </div>
+      <div class="row">
+        <div class="fluid center aligned column">
+          <div class="left attached ui labeled green button">
+            <i class="download icon"></i>
+            <a ng-click="downloadCurrent()">Click here to Download</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <div id="pdfViewer" class="centermargins">
+  </div>
+</div>
 </div>

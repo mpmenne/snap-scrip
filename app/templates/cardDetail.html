@@ -7,21 +7,30 @@
   <div class="ui two column page grid">
     <div class="column">
       <div class="row">
-        <img class='ui huge image' src='{{card.path}}'>
+        <img class='ui medium image' src='{{card.path}}'>
       </div>
     </div>
     <div class="column">
-      <div class="ui vertical buttons">
-          <div class="ui labeled animated green icon button" ng-repeat="cardValue in card.values">
-            <i class="cart icon"></i>
-            <a class="visible content" ng-click="addToCart(card, cardValue)">${{cardValue}} Gift Card</a>
-            <a class="hidden content" ng-click="addToCart(card, cardValue)">Add to Cart</a>
+      <!--<div class="ui vertical buttons">-->
+      <div class="ui grid">
+        <div ng-repeat="cardValue in card.values">
+          <div class="row">
+            <div ng-init="count=cardCount(card.name, cardValue)"></div>
+            <div class="left attached ui labeled green button">
+              <i class="plus icon"></i>
+              <a ng-click="addToCart(card, cardValue);count=count+1">${{cardValue}} Gift Card ({{count}})</a>
+            </div>
+            <div class="right attached ui labeled blue button">
+              <a ng-click="clearCards(card.name, cardValue);count=0">X</a>
+            </div>
           </div>
-          <a class="ui labeled icon button" href="#/home">
-            <i class="left arrow icon"></i>
-            Done
-          </a>
+        </div>
       </div>
+      <!--</div>-->
+      <a class="ui labeled icon button" href="#/home">
+        <i class="left arrow icon"></i>
+        Done
+      </a>
 
     </div>
   </div>

@@ -355,7 +355,7 @@ PubSub implementation
             page = 0,
             pages = [],
             objectNumber = 2, // 'n' Current object number
-            outToPages = false, // switches where out() prints. outToPages true = push to pages obj. outToPages false = doc builder content
+            outToPages = false,// switches where out() :sprints. outToPages true = push to pages obj. outToPages false = doc builder content
             offsets = [], // List of offsets. Activated and reset by buildDocument(). Pupulated by various calls buildDocument makes.
             fonts = {}, // collection of font objects, where key is fontKey - a dynamically created label for a given font.
             fontmap = {}, // mapping structure fontName > fontStyle > font key - performance layer. See addFont()

@@ -28,8 +28,15 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
         controller: function($scope, $stateParams, cardLookup, CartService, LocationService) {
           $scope.card = cardLookup;
           $scope.addToCart = CartService.addItemToCart;
+          $scope.cardCount = CartService.cardCount;
+          $scope.clearCards = CartService.clearCards;
           $scope.viewCart = LocationService.cart;
           $scope.removeItemFromCart = CartService.removeItemFromCart;
+          $scope.clearCardsForAllValues = function() {
+            _.forEach($scope.card.values, function(value) {
+              $scope.clearCards($scope.card.name, parseInt(value));
+            });
+          }
         }
       })
       .state('cart', {
@@ -44,17 +51,7 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
           CartService: 'CartService'
         },
         controller: function($scope, CartService) {
-          $scope.addCheckProcessing = CartService.addCheckProcessing;
-        }
-      })
-      .state('billing', {
-        url: '/billing',
-        templateUrl: 'templates/billing.html',
-        resolve: {
-          CartService: 'CartService'
-        },
-        controller: function($scope, CartService) {
-          $scope.allCartItems = CartService.allCartItems;
+          $scope.addTransactionFee = CartService.addTransactionFee;
         }
       })
       .state('review', {
@@ -62,16 +59,29 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
         templateUrl: 'templates/review.html',
         resolve: {
           CartService: 'CartService',
-          PdfService: 'PdfService'
+          PdfService: 'PdfService',
+          OrderService: 'OrderService',
+          LocationService: 'LocationService'
         },
-        controller: function($scope, PdfService, CartService) {
+        controller: function($scope, PdfService, CartService, OrderService, LocationService) {
           $scope.generatePdf = PdfService.getPdf;
           $scope.allCartItems = CartService.allCartItems;
+          $scope.addTransactionFee = CartService.addTransactionFee;
           $scope.fees = function(cartItem) {
             return !cartItem.percentage;
           }
           $scope.giftCards = function(cartItem) {
             return cartItem.percentage;
+          }
+          $scope.confirmOrder = function() {
+            OrderService.save(
+              {'firstName': $scope.firstName, 'secondName': $scope.secondName, 'phone': $scope.phone, 'email': $scope.email,
+                'rectoryPickup':$scope.rectoryPickup, 'afterMass':$scope.afterMass, 'sendHome':$scope.sendHome, 'childName':$scope.childName, 'homeroom':$scope.homeroom,
+                'checkNumber':$scope.checkNumber, 'checkAmount':$scope.checkAmount
+              },
+              $scope.allCartItems()
+            );
+            LocationService.confirmation();
           }
         }
       })
@@ -79,10 +89,33 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
         url: '/confirmation',
         templateUrl: 'templates/confirmation.html',
         resolve: {
-          CartService: 'CartService'
+          CartService: 'CartService',
+          OrderService: 'OrderService',
+          PdfService: 'PdfService'
         },
-        controller: function($scope, CartService) {
+        controller: function($scope, CartService, OrderService, PdfService) {
           $scope.allCartItems = CartService.allCartItems;
+          $scope.confirmOrder = OrderService.confirmOrder;
+          $scope.currentOrder = OrderService.currentOrder;
+          $scope.getPdf = PdfService.getPdf;
+
+//          $scope.order = {
+//            orderId:'meganmenne-1234',
+//            orderInformation:{firstName:'Megan', lastName:'Menne', phoneNumber:'314 477 1111', rectoryPickup:1, afterMass:1, sendHome:1, childName:'Laura', homeroom:'3rd', checkNumber:1001, checkAmount:100 },
+//            orders:[{'name':'Amazon', 'value':50}, {'name':'Amazon', 'value':50}]}
+          $scope.order = OrderService.currentOrder();
+          $scope.confirmationNumber = $scope.order.orderId;
+          PdfService.getPdf($scope.order).promise.then(function(pdf) {
+            //pdf.save('1234');
+            var pdfSource = pdf.output('datauristring');
+            angular.element('#pdfViewer').append("<iframe frameborder='0' src='" + pdfSource + "' width='650' height='450'></iframe>")
+            $scope.pdfSource = pdfSource;
+          });
+          $scope.downloadCurrent = function() {
+            PdfService.getPdf($scope.order).promise.then(function(pdf) {
+              pdf.save($scope.confirmationNumber);
+            });
+          }
         }
       })
 });
@@ -125,7 +158,15 @@ snapscripApp.controller('BaseController', function($scope, LocationService) {
 snapscripApp.filter('valueAggregate', function() {
   return function(itemsWithValue) {
     return _.reduce(itemsWithValue, function(total, nextItem) {
-      total += parseInt(nextItem.value);
+      total += parseFloat(nextItem.value);
+      return total;
+    }, 0);
+  }
+});
+snapscripApp.filter('totalAggregate', function() {
+  return function(itemsWithValue) {
+    return _.reduce(itemsWithValue, function(total, nextItem) {
+      total += parseFloat(nextItem.total);
       return total;
     }, 0);
   }
@@ -152,8 +193,6 @@ snapscripApp.filter('orderAggregate', function() {
       var totalValue = 0;
       var cardOrders = _.filter(orders, function(order) { return order.name == cardName});
       for (var cardOrderNumber in cardOrders) {
-        console.log(cardOrders);
-        console.log('cardOrder for ' + cardOrders[cardOrderNumber].name + '  ' + cardOrders[cardOrderNumber].value);
         count++;
         totalValue = totalValue + cardOrders[cardOrderNumber].value;
       }
@@ -171,17 +210,17 @@ snapscripApp.directive('gcard', function($location) {
   var instructionsElement = angular.element("<p ng-class='instructionClass' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>Click to Buy</p>");
 
   var link = function(scope, element) {
-    scope.imgClass = 'ui large image';
+    scope.imgClass = 'ui small image';
     scope.textClass = 'imageHide';
     scope.instructionClass = 'imageHide';
 
     scope.hoverGiftCard = function() {
-      scope.imgClass = "ui large disabled image";
+      scope.imgClass = "ui small disabled image";
       scope.textClass = 'imageText';
       scope.instructionClass = 'instructionText';
     };
     scope.exitGiftCard = function() {
-      scope.imgClass = 'ui large image';
+      scope.imgClass = 'ui small image';
       scope.textClass = 'ui link imageHide';
       scope.instructionClass = 'ui link imageHide';
     };
@@ -224,6 +263,9 @@ snapscripApp.factory('LocationService', function($location) {
     },
     'cart': function() {
       $location.path('/cart');
+    },
+    'confirmation': function() {
+      $location.path('/confirmation');
     }
   }
 });
@@ -249,14 +291,19 @@ snapscripApp.controller('TestController', function($scope, PdfService) {
       phoneNumber: '314 304 3148',
       accountNumber: '123455',
       routingNumber: '123423434535',
-      checkNumber: 1001
+      checkNumber: 1001,
+      checkAmount: 100
     },
     orders: [
       {name:'Amazon', value:25},
       {name:'Amazon', value:25},
+      {name:'Amazon', value:25},
       {name:'Applebees', value:50},
       {name:'Applebees', value:50},
-      {name:'Applebees', value:50}
+      {name:'Biggies Restaurant', value:25},
+      {name:'Chris Pancakes', value:25},
+      {name:'KFC', value:5},
+      {name:'Le Grands', value:25}
     ]
   };
 
