@@ -8,8 +8,6 @@ deploy:
     local-dir: app
     on:
       repo: MoMenne/snap-scrip
-    AKIAJBDK7QBVBHEKPFZQ:
-      secure: PDMqYSKLLV5mYQOONZYotquHomoeBqm4GVDoHODyQiWOGhyKf5m9ZpB957LbZVxJ4Sn9xhACCz+lmVSBaLPk0UVEcvAQWcBRO+e29sajyKiS3VnaGtgy7UNn2NLbrUsYTjLBUtRQszH7Mro0eaKWkmXBkB/w1WemLhMflWWbEGo=
   - provider: s3
     access_key_id: AKIAJBDK7QBVBHEKPFZQ
     secret_access_key:
@@ -18,5 +16,5 @@ deploy:
     local-dir: app
     on:
       repo: MoMenne/snap-scrip
-    AKIAJBDK7QBVBHEKPFZQ:
-      secure: PDMqYSKLLV5mYQOONZYotquHomoeBqm4GVDoHODyQiWOGhyKf5m9ZpB957LbZVxJ4Sn9xhACCz+lmVSBaLPk0UVEcvAQWcBRO+e29sajyKiS3VnaGtgy7UNn2NLbrUsYTjLBUtRQszH7Mro0eaKWkmXBkB/w1WemLhMflWWbEGo=
+  AKIAJBDK7QBVBHEKPFZQ:
+    secure: PDMqYSKLLV5mYQOONZYotquHomoeBqm4GVDoHODyQiWOGhyKf5m9ZpB957LbZVxJ4Sn9xhACCz+lmVSBaLPk0UVEcvAQWcBRO+e29sajyKiS3VnaGtgy7UNn2NLbrUsYTjLBUtRQszH7Mro0eaKWkmXBkB/w1WemLhMflWWbEGo=
