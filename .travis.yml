@@ -1,11 +1,11 @@
 deploy:
-  language: javascript
   provider: s3
-  access_key_id: YOUR AWS ACCESS KEY
-  secret_access_key: YOUR AWS SECRET KEY
-  bucket: S3 Bucket
-  skip_cleanup: true
+  access_key_id: AKIAJNXQ7B5RTVBEXN6A
+  secret_access_key:
+    secure: DopTWECtUoNQ8zJHHHvAqA6VH7T2BSn2jOsjxNezE0eDK6m3xo4dYuE6CB89dqoRDXMg7pKwlVNvA/1EGmuyPr1NumW3/8uHnzZ4IH3wupjIUgYm0+qpP6OAY256YJ8niX7EG7FHZDEgY17Zh4Ga9g6ymNZ2Ut9p3cGorM3w/CI=
+  bucket: snapscrip.com
   local-dir: app
-  upload-dir: snapscrip.com
+  on:
+    repo: MoMenne/snap-scrip
 vBBOYosUQuNIRy91YzeloHxiX6VxiddQzupk6qkK:
   secure: S7KbHKWmKEsoUCEImAfy5aLW9lXqTX6nqXkzLSsVLH4AW6BbfQfbShHZB/cw4tsBEQdQkXId/68beWfcdjUGEAIUPu2Ia7ydUDgIvGIi5KQSkfK8xhvLCYLKe1RnBPx29YMrdvktWK6aRjJAe922o7HX69BSjIAdUNWSvdcmP38=
