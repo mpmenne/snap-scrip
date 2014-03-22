@@ -3,6 +3,6 @@ deploy:
   provider: s3
   access_key_id: AKIAJNXQ7B5RTVBEXN6A
   secret_access_key: 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 
-  bucket: snap-scrip.com.s3-website-us-west-2.amazonaws.com 
+  bucket: snap-scrip.com 
   skip_cleanup: true
   local-dir: app
