@@ -1,8 +1,8 @@
 language: javascript 
 deploy:
   provider: s3
-  access_key_id: S3_ACCESS_KEY 
-  secret_access_key: S3_SECRET_KEY
+  access_key_id: AKIAJNXQ7B5RTVBEXN6A
+  secret_access_key: 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 
   bucket: snapscrip
   skip_cleanup: true
   local-dir: app
