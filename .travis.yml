@@ -1,8 +1,12 @@
 language: node_js
 deploy:
   provider: s3
-  access_key_id: AKIAJNXQ7B5RTVBEXN6A
-  secret_access_key: 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 
-  bucket: "snapscrip.com" 
-  skip_cleanup: true
+  access_key_id: AKIAJBDK7QBVBHEKPFZQ
+  secret_access_key:
+    secure: IzGq0zh8/XPMw9LegskqCzmtrqdD9Qpp48sT6cDGbTWoSHv2uCDnpXwBzO1hOup5cwxy/M9L+zfbn+wMb+6WNWujCnIGKVDcytcaT3JYfIG8Zz/PKYft6s+GQ/UDmwnBRctNcYwc2Qve7ixgMTOwSZve47tXLpT4cY+uY9nAT2Y=
+  bucket: snapscrip.com
   local-dir: app
+  on:
+    repo: MoMenne/snap-scrip
+AKIAJBDK7QBVBHEKPFZQ:
+  secure: PDMqYSKLLV5mYQOONZYotquHomoeBqm4GVDoHODyQiWOGhyKf5m9ZpB957LbZVxJ4Sn9xhACCz+lmVSBaLPk0UVEcvAQWcBRO+e29sajyKiS3VnaGtgy7UNn2NLbrUsYTjLBUtRQszH7Mro0eaKWkmXBkB/w1WemLhMflWWbEGo=
