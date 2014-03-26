@@ -57,23 +57,34 @@ snapscripApp.factory('CartService', function() {
   }
 });
 
-snapscripApp.factory('CardService', function($http) {
+snapscripApp.factory('CardService', function($http, $q) {
   var giftcards;
   $http.get('rest/cards.json').success(function(data) {
     giftcards = data;
-  }).error(function(data) {
-    alert('error retrieving gift cards');
-  });
+  }).error(function(data) { alert('error retrieving gift cards'); });
 
   return {
     findCard: function(name) {
+      var findCardPromise = $q.defer();
+      if (!giftcards) {
+        $http.get('rest/cards.json').success(function(giftcards) {
+          for (i = 0; i < giftcards.length; ++i) {
+            if (name === giftcards[i].name || name === giftcards[i].path.split('/')[1].split('.')[0].split('-')[0]) {
+              findCardPromise.resolve(giftcards[i]);
+            }
+          }
+          findCardPromise.resolve({});
+        }).error(function(data) { alert('error retrieving gift cards'); });
+        return findCardPromise;
+      }
       var i;
       for (i = 0; i < giftcards.length; ++i) {
-        if (name === giftcards[i].name) {
-          return giftcards[i];
+        if (name === giftcards[i].name || name === giftcards[i].path.split('/')[1].split('.')[0].split('-')[0]) {
+          findCardPromise.resolve(giftcards[i]);
         }
       }
-      return {};
+      findCardPromise.resolve({});
+      return findCardPromise;
     },
     allCards: function() {
       return giftcards;

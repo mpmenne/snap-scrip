@@ -2,7 +2,7 @@
 <html lang="en" ng-app="snapscripApp" ng-controller="BaseController as baseCtrl">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS App</title>
+  <title>Snap Scrip</title>
 
   <!--<link href="semantic/packaged/css/semantic.min.css" rel="stylesheet" type="text/css"/>-->
   <link rel="stylesheet" type="text/css" class="ui" href="semantic/packaged/css/semantic.css">
@@ -36,13 +36,13 @@
         </div>
         <div class="column">
           <div class="ui icon huge header">
-            <i class="circular cart link icon" ng-click="baseCtrl.viewCart()"></i>Buy Online
+            <i class="circular cart link icon" ng-click="baseCtrl.viewCart()" id="buyOnlineLink"></i>Buy Online
             <p class="sub header">Send your order and payment directly to your Parish</p>
           </div>
         </div>
         <div class="column">
           <div class="ui icon huge header">
-            <i class="circular home link icon" ng-click="baseCtrl.viewCart()"></i>Pick Up
+            <i class="circular home link icon" ng-click="baseCtrl.viewCart()" id="pickupLink"></i>Pick Up
             <p class="sub header">Pick up your giftcards after mass or from the Rectory</p>
           </div>
         </div>

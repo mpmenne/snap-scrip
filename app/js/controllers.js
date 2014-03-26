@@ -26,7 +26,7 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
           }
         },
         controller: function($scope, $stateParams, cardLookup, CartService, LocationService) {
-          $scope.card = cardLookup;
+          cardLookup.promise.then(function(data){$scope.card = data});
           $scope.addToCart = CartService.addItemToCart;
           $scope.cardCount = CartService.cardCount;
           $scope.clearCards = CartService.clearCards;
@@ -204,9 +204,16 @@ snapscripApp.filter('orderAggregate', function() {
   }
 });
 
+snapscripApp.filter('cardName', function() {
+  return function(imagePath) {
+    return imagePath.split('/')[1].split('.')[0].split('-')[0];
+  }
+});
+
 snapscripApp.directive('gcard', function($location) {
-  var imgElement = angular.element("<img ng-class='imgClass' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()' data-content='This is where you buy buy buy' src='{{giftcard.path}}'>");
-  var textElement = angular.element("<h2 ng-class='textClass' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>{{giftcard.percentage}}%</h2>");
+
+  var imgElement = angular.element("<img ng-class='imgClass' id='{{giftcard.path | cardName}}' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()' data-content='This is where you buy buy buy' src='{{giftcard.path}}'>");
+  var textElement = angular.element("<h2 ng-class='textClass' id='{{giftcard.path | cardName}}' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>{{giftcard.percentage}}%</h2>");
   var instructionsElement = angular.element("<p ng-class='instructionClass' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>Click to Buy</p>");
 
   var link = function(scope, element) {
@@ -225,7 +232,7 @@ snapscripApp.directive('gcard', function($location) {
       scope.instructionClass = 'ui link imageHide';
     };
     scope.viewCard = function() {
-      $location.path("/cards/" + scope.giftcard.name)
+      $location.path("/cards/" + scope.giftcard.path.split('/')[1].split('.')[0].split('-')[0]);
     };
   };
 

@@ -1,6 +1,6 @@
 [
-  {"name":"Amazon", "path": "img/amazon-10.jpg", "logo": "img/amazon.jpg", "percentage": 4, "values": ["25", "100"], "tags":"books, electronics, kindle"},
-  {"name":"Home Depot", "path": "img/home-depot-giftcard.jpeg", "logo": "img/homedepot-logo.gif", "percentage": 4, "values": ["25", "100", "500"], "tags":"tools, house supplies"},
+  {"name":"Amazon", "path": "img/amazon-giftcard.jpg", "logo": "img/amazon-giftcard.jpg", "percentage": 4, "values": ["25", "100"], "tags":"books, electronics, kindle"},
+  {"name":"Home Depot", "path": "img/homedepot-giftcard.jpeg", "logo": "img/homedepot-logo.gif", "percentage": 4, "values": ["25", "100", "500"], "tags":"tools, house supplies"},
   {"name":"Starbucks", "path": "img/starbucks-gift-card.jpg", "logo": "img/starbucks-logo.jpg", "percentage": 7, "values": ["10", "25"], "tags":"coffee"},
   {"name":"Chris Pancakes", "path": "img/chispancakes-giftcard.png", "logo": "img/chrispancakes-giftcard.png", "percentage": 10, "values": ["10", "25"], "tags":"food, local"},
   {"name":"Bass Pro Shop", "path": "img/basspro-giftcard.jpg", "logo": "img/bassproshop-logo.jpg", "percentage": 9, "values": ["25", "100"], "tags":"hunting, fishing, sporting goods"},
@@ -11,7 +11,7 @@
   {"name":"Shell", "path": "img/shell-giftcard.jpeg", "logo": "img/shell_logo.jpg", "percentage": 2.5, "values": ["25", "50", "100"], "tags":"gas"},
   {"name":"Ace Hardware", "path": "img/ace-giftcard.jpeg", "logo": "img/ace-logo.jpeg", "percentage": 4, "values": ["25", "100"], "tags":"tools, home improvement"},
   {"name":"Aeropostale", "path": "img/aerogiftcard.jpg", "logo": "img/aeropostale.jpeg", "percentage": 7, "values": ["25"], "tags":"clothes"},
-  {"name":"AMC Theatres", "path": "img/amc-giftcard.jpg", "logo": "img/amctheatres.jpeg", "percentage": 8, "values": ["25"], "tags":"movies"},
+  {"name":"AMC Theatres", "path": "img/amctheatres-giftcard.jpg", "logo": "img/amctheatres.jpeg", "percentage": 8, "values": ["25"], "tags":"movies"},
   {"name":"American Eagle Outfitters", "path": "img/americaneagle-giftcard.jpeg", "logo": "img/americaneagle.gif", "percentage": 10, "values": ["25"], "tags":"clothes"},
   {"name":"Applebees", "path": "img/applesbees-giftcard.jpeg", "logo": "img/applebees-logo.jpeg", "percentage": 8, "values": ["25", "50"], "tags":"food, restaurant"},
   {"name":"Arbys", "path": "img/arbys-giftcard.jpg", "logo": "img/arbys-logo.jpeg", "percentage": 8, "values": ["10"], "tags":"food, restaurant, fast food"},

@@ -19,7 +19,7 @@ describe('services', function() {
     $httpBackend = _$httpBackend_;
     OrderService = _OrderService_;
     $httpBackend.expectGET('rest/cards.json').
-        respond([{"name":"Amazon", "path": "img/amazon-10.jpg", "logo": "img/amazon.jpg", "percentage": "4%", "values": ["25", "100"], "tags":"books, electronics, kindle"}]);
+        respond([{"name":"Amazon", "path": "img/amazon-giftcard.jpg", "logo": "img/amazon-giftcard.jpg", "percentage": "4%", "values": ["25", "100"], "tags":"books, electronics, kindle"}]);
     CartService = _CartService_;
     $filter = _$filter_;
   }));
@@ -47,9 +47,20 @@ describe('services', function() {
     });
 
     it('should allow us to search for a specific card', function() {
+      var card;
       $httpBackend.flush();
-      expect(CardService.findCard('Amazon').path).toBeTruthy();
-      expect(CardService.findCard('Amazon1').path).toBeFalsy();
+      CardService.findCard('Amazon').promise.then(function(data){
+        expect(data.path).toBeTruthy();
+      });
+      CardService.findCard('Amazon1').promise.then(function(data){
+        expect(data.path).toBeTruthy();
+      });
+    });
+    it('should allow us to search for url friendly names', function() {
+      $httpBackend.flush();
+      CardService.findCard('amazon').promise.then(function(data){
+        expect(data.path).toBeTruthy();
+      });
     });
   });
 
