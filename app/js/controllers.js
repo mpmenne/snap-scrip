@@ -75,7 +75,7 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
           }
           $scope.confirmOrder = function() {
             OrderService.save(
-              {'firstName': $scope.firstName, 'secondName': $scope.secondName, 'phone': $scope.phone, 'email': $scope.email,
+              {'firstName': $scope.firstName, 'lastName': $scope.lastName, 'phone': $scope.phone, 'email': $scope.email,
                 'rectoryPickup':$scope.rectoryPickup, 'afterMass':$scope.afterMass, 'sendHome':$scope.sendHome, 'childName':$scope.childName, 'homeroom':$scope.homeroom,
                 'checkNumber':$scope.checkNumber, 'checkAmount':$scope.checkAmount
               },
