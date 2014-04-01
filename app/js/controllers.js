@@ -232,6 +232,7 @@ snapscripApp.directive('gcard', function($location) {
       scope.instructionClass = 'ui link imageHide';
     };
     scope.viewCard = function() {
+      console.log(scope.giftcard.path.split('/')[1].split('.')[0].split('-')[0])
       $location.path("/cards/" + scope.giftcard.path.split('/')[1].split('.')[0].split('-')[0]);
     };
   };

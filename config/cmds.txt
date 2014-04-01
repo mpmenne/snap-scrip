@@ -1,0 +1,6 @@
+# to run nginx, execute the following command with sudo
+sudo /usr/local/Cellar/nginx/1.2.3/sbin/nginx -c /Users/mpmenne/Code/Real/snap-scrip/config/nginx.conf
+
+# to run the protractor tests first ensure that you have the libraries installed
+npm install -g protractor
+protractor protractor.conf.js
