@@ -78,6 +78,15 @@ body {
     text-align: center;
 }
 
+div .centered.button {
+    position: absolute;
+    left: 50%;
+}
+
+.left {
+    text-align: left;
+}
+
 .centermargins {
     margin:0px auto;
     width: 82%;
@@ -114,8 +123,34 @@ body {
     font-weight: bold;
 }
 
+.bigBold {
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding-left: 10px;
+}
+
+.italics {
+    font-style: italic;
+}
+
 .red {
     color: red;
+}
+
+.green {
+    color: green;
+}
+
+.logoColor {
+    color: #add8e6;
+}
+
+.imgClass {
+
+}
+
+div.block {
+    display:block;
 }
 
 /**

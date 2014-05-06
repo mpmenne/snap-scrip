@@ -24,11 +24,13 @@
       <div class="row" ng-class="{hovered: hover1, selectediv: clicked1}" ng-mouseenter="hover1 = true" ng-mouseleave="hover1 = false" ng-click="clicked1=!clicked1; clicked2=false; clicked3=false; addTransactionFee('', 0)">
         <div class="twelve wide column">
            <h2 class="ui huge header">
-             <i class="print icon"></i>
+             <i class="money icon"></i>
              <div class="content">
-               Print Online
-               <div class="sub header">Print your order now. Turn in your printed order form and a check to your Parish Rectory or School</div>
-               <!--<div ng-class="{cantsee: !clicked1}">Great! Just print your completed order form</div>-->
+               Cash or Check
+               <div class="sub header">We forward you order to the school.  You coordinate payment.
+                 <br>You can drop your payment off at the rectory or send it with your kids to school.
+                 <br><span class="bigBold">Your order will be placed when payment is received</span>
+                </div>
              </div>
            </h2>
         </div>
@@ -38,25 +40,25 @@
           </h4>
         </div>
       </div>
-      <div class="row" ng-class="{hovered: hover2, selectediv: clicked2}" ng-mouseenter="hover2 = true" ng-mouseleave="hover2 = false" ng-click="clicked2=!clicked2; clicked1=false; clicked3=false; addTransactionFee('Electronic Check Fee', 1.5)">
-        <div class="twelve wide column">
-          <h2 class="ui huge header">
-            <i class="money icon"></i>
-            <div class="content">
-              Order Online with Electronic Check
-              <div class="sub header">Submit your order online. Your order and payment will be forwarded directly to your Parish Rectory or School</div>
-              <div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">Sorry!  This is currently unavailble.</div>
-              <!--<div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">Electronic Check payments coming soon.</div>-->
-              <!--<div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">We're working on it :-)</div>-->
-            </div>
-          </h2>
-        </div>
-        <div class="four right aligned wide column">
-          <h4 class="ui medium header">
-            $1.50 Fee
-          </h4>
-        </div>
-      </div>
+      <!--<div class="row" ng-class="{hovered: hover2, selectediv: clicked2}" ng-mouseenter="hover2 = true" ng-mouseleave="hover2 = false" ng-click="clicked2=!clicked2; clicked1=false; clicked3=false; addTransactionFee('Electronic Check Fee', 1.5)">-->
+        <!--<div class="twelve wide column">-->
+          <!--<h2 class="ui huge header">-->
+            <!--<i class="money icon"></i>-->
+            <!--<div class="content">-->
+              <!--Order Online with Electronic Check-->
+              <!--<div class="sub header">Submit your order online. Your order and payment will be forwarded directly to your Parish Rectory or School</div>-->
+              <!--<div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">Sorry!  This is currently unavailble.</div>-->
+              <!--&lt;!&ndash;<div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">Electronic Check payments coming soon.</div>&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="red" ng-class="{sorry: clicked2, cantsee: !clicked2}">We're working on it :-)</div>&ndash;&gt;-->
+            <!--</div>-->
+          <!--</h2>-->
+        <!--</div>-->
+        <!--<div class="four right aligned wide column">-->
+          <!--<h4 class="ui medium header">-->
+            <!--$1.50 Fee-->
+          <!--</h4>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="row" ng-class="{hovered: hover3, selectediv: clicked3}" ng-mouseenter="hover3 = true" ng-mouseleave="hover3 = false" ng-click="clicked3=!clicked3; clicked1=false; clicked2=false; addTransactionFee('Credit Card Check Fee', 5)">
         <div class="twelve wide column">
           <h2 class="ui huge header">
@@ -64,7 +66,7 @@
             <div class="content">
               Order Online with Credit Card
               <div class="sub header">Submit your order online. Your order and payment will be forwarded directly to your Parish Rectory or School</div>
-              <div class="red" ng-class="{sorry: clicked3, cantsee: !clicked3}">Sorry!  This is currently unavailable</div>
+              <!--<div class="red" ng-class="{sorry: clicked3, cantsee: !clicked3}">Sorry!  This is currently unavailable</div>-->
               <!--<div class="red" ng-class="{sorry: clicked3, cantsee: !clicked3}">Credit Card payments coming soon.</div>-->
               <!--<div class="red" ng-class="{sorry: clicked3, cantsee: !clicked3}">We're working on it :-)</div>-->
             </div>
@@ -72,7 +74,7 @@
         </div>
         <div class="four right aligned wide column">
               <h4 class="ui medium header">
-                $5.00 Fee
+                $4.00 Fee
               </h4>
         </div>
       </div>

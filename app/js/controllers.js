@@ -121,7 +121,8 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
 });
 
 snapscripApp.controller('CartController', function($scope, CartService) {
-  $scope.cartItems = 400;
+  var cartCtrl = this;
+  $scope.cartItems = ['a', 'b'];
   $scope.itemsInCart = CartService.allCartItems();
 
   $scope.removeItem = function(card) {
@@ -136,8 +137,14 @@ snapscripApp.controller('CardController', function($scope, CardService) {
 
 snapscripApp.controller('ScripController', function($scope, $location, CardService, CartService) {
   var scripCtrl = this;
+  scripCtrl.giftcards = [];
   scripCtrl.searchCriteria = "";
   scripCtrl.schoolName = 'St. Joan of Arc';
+
+  scripCtrl.viewCard = function(giftcard) {
+    console.log(giftcard.key);
+    $location.path("/cards/" + giftcard.key);
+  };
 
   scripCtrl.allCards = function() {
     return CardService.allCards();
@@ -146,10 +153,22 @@ snapscripApp.controller('ScripController', function($scope, $location, CardServi
     CartService.addItemToCard(giftCard, value);
   };
 
+  scripCtrl.filterIt = function(searchValue) {
+
+  };
+
+  $scope.searchCards = function(ev) {
+    if (ev.which==13 || ev.which == 1) {
+      $scope.enteredSearchCriteria = $scope.searchCriteria;
+    }
+  }
+
 });
 
-snapscripApp.controller('BaseController', function($scope, LocationService) {
+snapscripApp.controller('BaseController', function($scope, LocationService, $location) {
   var baseCtrl = this;
+  baseCtrl.$location = $location;
+  baseCtrl.cartItems = ['a', 'b'];
   baseCtrl.viewCart = LocationService.cart;
   baseCtrl.viewHome = LocationService.home;
 });
@@ -212,8 +231,8 @@ snapscripApp.filter('cardName', function() {
 
 snapscripApp.directive('gcard', function($location) {
 
-  var imgElement = angular.element("<img ng-class='imgClass' id='{{giftcard.path | cardName}}' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()' data-content='This is where you buy buy buy' src='{{giftcard.path}}'>");
-  var textElement = angular.element("<h2 ng-class='textClass' id='{{giftcard.path | cardName}}' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>{{giftcard.percentage}}%</h2>");
+  var imgElement = angular.element("<img ng-class='imgClass' id='{{giftcard.key}}' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()' data-content='This is where you buy buy buy' src='{{giftcard.path}}'>");
+  var textElement = angular.element("<h2 ng-class='textClass' id='{{giftcard.key}}' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>{{giftcard.percentage}}%</h2>");
   var instructionsElement = angular.element("<p ng-class='instructionClass' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>Click to Buy</p>");
 
   var link = function(scope, element) {
@@ -232,8 +251,8 @@ snapscripApp.directive('gcard', function($location) {
       scope.instructionClass = 'ui link imageHide';
     };
     scope.viewCard = function() {
-      console.log(scope.giftcard.path.split('/')[1].split('.')[0].split('-')[0])
-      $location.path("/cards/" + scope.giftcard.path.split('/')[1].split('.')[0].split('-')[0]);
+      console.log(scope.giftcard.key);
+      $location.path("/cards/" + scope.giftcard.key);
     };
   };
 

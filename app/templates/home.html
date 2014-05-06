@@ -1,19 +1,33 @@
-<div>
-  <div ng-controller="ScripController as scripCtrl">
-    <div class="ui grid">
-      <div class="sixteen wide aligned center column">
-        <div class="ui huge icon input search" >
-          <input type="text" ng-model="searchCriteria" placeholder="Search for anything...">
-          <i class="circular search icon"></i>
-        </div>
-        <i class="cart huge link icon" ng-click="baseCtrl.viewCart()"></i>
-      </div>
-    </div>
+<!--<div class="ui page overview segment">-->
+  <!--<div class="ui two wide column"></div>-->
+  <!--<div class="twelve wide column">-->
+    <!--<div class="ui three column center aligned stackable divided grid">-->
+      <!--<div class="column">-->
+        <!--<div class="ui icon huge header">-->
+          <!--<i class="circular gift link icon" ng-click="baseCtrl.viewHome()"></i>Shop-->
+          <!--<p class="sub header">Browse all of your Parish Scrip Giftcards</p>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="column">-->
+        <!--<div class="ui icon huge header">-->
+          <!--<i class="circular cart link icon" ng-click="baseCtrl.viewCart()" id="buyOnlineLink"></i>Buy Online-->
+          <!--<p class="sub header">Send your order and payment directly to your Parish</p>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="column">-->
+        <!--<div class="ui icon huge header">-->
+          <!--<i class="circular home link icon" ng-click="baseCtrl.viewCart()" id="pickupLink"></i>Pick Up-->
+          <!--<p class="sub header">Pick up your giftcards after mass or from the Rectory</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
 
-    <div class="ui medium images centered">
-      <gcard ng-repeat="giftcard in scripCtrl.allCards() | filter:searchCriteria " data="giftcard">
-
-      </gcard>
+<div class="ui grid">
+  <div class="row">
+    <div class="twelve wide centered column">
+      <h1>Select a Giftcard</h1>
     </div>
   </div>
 </div>

@@ -1,37 +1,44 @@
 <div>
-  <div class="ui horizontal divider">
-    <i class="circular down icon"></i>
-  </div>
+  <!--<div class="ui horizontal divider">-->
+    <!--<i class="circular down icon"></i>-->
+  <!--</div>-->
 
   <h1 class="ui aligned center header" id="cardHeader">{{card.name}}</h1>
   <div class="ui two column page grid">
     <div class="column">
       <div class="row">
-        <img class='ui medium image' src='{{card.path}}'>
-      </div>
-    </div>
-    <div class="column">
-      <!--<div class="ui vertical buttons">-->
-      <div class="ui grid">
-        <div ng-repeat="cardValue in card.values">
+        <div class="ui two column grid">
           <div class="row">
-            <div ng-init="count=cardCount(card.name, cardValue)"></div>
-            <div class="left attached ui labeled green button">
-              <i class="plus icon"></i>
-              <a ng-click="addToCart(card, cardValue);count=count+1">${{cardValue}} Gift Card ({{count}})</a>
-            </div>
-            <div class="right attached ui labeled blue button">
-              <a ng-click="clearCards(card.name, cardValue);count=0">X</a>
+            <div class="column"></div>
+            <div class="column">
+              <img class='ui medium image' src='{{card.path}}'>
             </div>
           </div>
         </div>
       </div>
-      <!--</div>-->
-      <a class="ui labeled icon button" href="#/home">
-        <i class="left arrow icon"></i>
-        Done
-      </a>
-
+    </div>
+    <div class="column">
+      <div class="ui grid">
+        <div class="row">
+          <div class="ui twelve wide column">
+            <span class="centered">{{card.percentage}}% Donation</span>
+          </div>
+        </div>
+        <div ng-repeat="cardValue in card.values">
+          <div class="row">
+            <div class="ui six wide column">
+              <div ng-init="count=cardCount(card.name, cardValue)"></div>
+              <div id="add{{cardValue}}" class="left attached ui labeled green button">
+                <i class="plus icon"></i>
+                <a ng-click="addToCart(card, cardValue);count=count+1">${{cardValue}} Gift Card ({{count}})</a>
+              </div>
+              <div class="right attached ui labeled blue button">
+                <a ng-click="clearCards(card.name, cardValue);count=0">X</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
