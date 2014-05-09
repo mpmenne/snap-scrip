@@ -153,6 +153,20 @@ div.block {
     display:block;
 }
 
+@media (min-width: 200px) and (max-width: 829px) {
+    .menuPadding {
+        width: 100%;
+        height: 55px;
+    }
+}
+
+@media (min-width: 830px) and (max-width: 1199px) {
+    .menuPadding {
+        width: 100%;
+        height: 25px;
+    }
+}
+
 /**
 * Semantic UI override
 */

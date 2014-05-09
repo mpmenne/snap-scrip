@@ -116,7 +116,7 @@ snapscripApp.factory('CardService', function($http, $q) {
         {"key":"kfc", "name":"KFC", "path": "img/kfc-giftcard.jpeg", "logo": "img/kfc-giftcard.jpeg", "percentage": 8, "values": ["5"], "tags":"food, fast"},
         {"key":"legrands", "name":"Le Grands", "path": "img/legrands-giftcard.jpg", "logo": "img/legrands-giftcard.jpg", "percentage": 3, "values": ["10", "20"], "tags":"local,food,grocery,deli"},
         {"key":"littlecaesars", "name":"Little Caesars", "path": "img/littlecaesars-giftcard.jpeg", "logo": "img/littlecaesars-logo.jpg", "percentage": 8, "values": ["20"], "tags":"food, restaurant, pizza"},
-        {"key":"lowes", "name":"Lowes", "path": "img/lowes-giftcard.jpg", "logo": "img/lowes-logo.jpg", "percentage": 4, "values": ["20", "25", "100", "500"], "tags":"home"},
+        {"key":"lowes", "name":"Lowes", "path": "img/lowes-giftcard.jpg", "logo": "img/lowes-logo.jpg", "percentage": 4, "values": ["25", "50", "100", "500"], "tags":"home"},
         {"key":"matthewskitchen", "name":"Matthews Kitchen", "path": "img/matthewskitchen-giftcard.jpg", "logo": "img/matthewskitchen-giftcard.jpg", "percentage": 10, "values": ["25"], "tags":"food, local, restaurant"},
         {"key":"menswarehouse", "name":"Mens Warehouse", "logo": "img/menswarehouse-logo.jpeg", "path": "img/menswarehouse-giftcard.jpeg", "percentage": 8, "values": ["25"], "tags":"clothes"},
         {"key":"niemanmarcus", "name":"Nieman Marcus", "path": "img/niemanmarcus-giftcard.jpeg", "logo": "img/niemanmarcus-logo.jpeg", "percentage": 12, "values": ["50"], "tags":"clothes"},

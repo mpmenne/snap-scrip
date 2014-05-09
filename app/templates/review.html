@@ -1,3 +1,5 @@
+<div class="menuPadding"></div>
+
 <div>
   <div class="ui horizontal divider">
     <i class="circular down icon"></i>
@@ -39,28 +41,21 @@
         </div>
       </div>
       <div class="centered">
-        <form action="/charge" method="POST">
-          <script
-              src="https://checkout.stripe.com/checkout.js"
-              class="stripe-button"
-              data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-              data-image="/square-image.png"
-              data-name="Demo Site"
-              data-billing-address
-              data-description="2 widgets ($20.00)"
-              data-amount="2000">
-          </script>
-        </form>
+        <div class="four wide right aligned column" ng-click="processPayment()">
+          <a class="ui green right labeled icon button">
+            <i class="right arrow icon"></i>
+            Complete Order
+          </a>
+        </div>
       </div>
     </div>
   </div>
   </div>
-</div>
 <div>
-<div class="ui horizontal divider">
-  <i class="circular down icon"></i>
-</div>
-<div class="centermargins">
+<!--<div class="ui horizontal divider">-->
+  <!--<i class="circular down icon"></i>-->
+<!--</div>-->
+<!--<div class="centermargins">-->
 
     <!--<h2 class="ui center aligned fluid header">Billing-->
       <!--<div class="sub header">Please share some information to help complete your order</div>-->
@@ -141,22 +136,24 @@
       <!--</div>-->
     <!--</div>-->
 
-    <div class="ui grid">
-      <div class="row">
-        <div class="four wide left aligned column"></div>
-        <div class="four wide left aligned column">
-          <a class="ui left labeled icon button" href="/#/cart">
-            <i class="left arrow icon"></i>
-            Cancel Order
-          </a>
-        </div>
-        <div class="four wide right aligned column" ng-click="confirmOrder()">
-          <a class="ui green right labeled icon button">
-            <i class="right arrow icon"></i>
-            Complete Order
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!--<div class="ui grid">-->
+      <!--<div class="row">-->
+        <!--<div class="four wide left aligned column"></div>-->
+        <!--<div class="four wide left aligned column">-->
+          <!--<a class="ui left labeled icon button" href="/#/cart">-->
+            <!--<i class="left arrow icon"></i>-->
+            <!--Cancel Order-->
+          <!--</a>-->
+        <!--</div>-->
+        <!--<div class="four wide right aligned column" ng-click="confirmOrder()">-->
+          <!--<a class="ui green right labeled icon button">-->
+            <!--<i class="right arrow icon"></i>-->
+            <!--Complete Order-->
+          <!--</a>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</div>
+
 </div>

@@ -63,27 +63,7 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
           OrderService: 'OrderService',
           LocationService: 'LocationService'
         },
-        controller: function($scope, PdfService, CartService, OrderService, LocationService) {
-          $scope.generatePdf = PdfService.getPdf;
-          $scope.allCartItems = CartService.allCartItems;
-          $scope.addTransactionFee = CartService.addTransactionFee;
-          $scope.fees = function(cartItem) {
-            return !cartItem.percentage;
-          }
-          $scope.giftCards = function(cartItem) {
-            return cartItem.percentage;
-          }
-          $scope.confirmOrder = function() {
-            OrderService.save(
-              {'firstName': $scope.firstName, 'lastName': $scope.lastName, 'phone': $scope.phone, 'email': $scope.email,
-                'rectoryPickup':$scope.rectoryPickup, 'afterMass':$scope.afterMass, 'sendHome':$scope.sendHome, 'childName':$scope.childName, 'homeroom':$scope.homeroom,
-                'checkNumber':$scope.checkNumber, 'checkAmount':$scope.checkAmount
-              },
-              $scope.allCartItems()
-            );
-            LocationService.confirmation();
-          }
-        }
+        controller: 'ReviewController'
       })
       .state('confirmation', {
         url: '/confirmation',
@@ -129,6 +109,56 @@ snapscripApp.controller('CartController', function($scope, CartService) {
     CartService.removeItemFromCart(card);
   };
 
+});
+
+snapscripApp.controller('ReviewController', function($scope, PdfService, CartService, OrderService, LocationService, $http) {
+    var reviewCtrl = this;
+    var processing = false;
+    $scope.generatePdf = PdfService.getPdf;
+    $scope.allCartItems = CartService.allCartItems;
+    $scope.addTransactionFee = CartService.addTransactionFee;
+    $scope.fees = function(cartItem) {
+      return !cartItem.percentage;
+    }
+    $scope.giftCards = function(cartItem) {
+      return cartItem.percentage;
+    }
+    $scope.confirmOrder = function() {
+      OrderService.save(
+          {'firstName': $scope.firstName, 'lastName': $scope.lastName, 'phone': $scope.phone, 'email': $scope.email,
+            'rectoryPickup':$scope.rectoryPickup, 'afterMass':$scope.afterMass, 'sendHome':$scope.sendHome, 'childName':$scope.childName, 'homeroom':$scope.homeroom,
+            'checkNumber':$scope.checkNumber, 'checkAmount':$scope.checkAmount
+          },
+          $scope.allCartItems()
+      );
+      LocationService.confirmation();
+    }
+    $scope.processPayment = function() {
+      console.log('Processing');
+      var token = function(res) {
+        $http.post('/orders').success(function(giftcards) {
+
+          findCardPromise.resolve({});
+        }).error(function(data) { alert('Error processing credit card payment. \n Please contact the St. Joan of Arc Rectory'); });
+      };
+
+
+      var orderTotal = _.reduce($scope.allCartItems(), function(total, item) {
+        return total + item.amount;
+      });
+      console.log('order total ' + orderTotal);
+
+      StripeCheckout.open({
+        key:         'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+        address:     true,
+        amount:      orderTotal,
+        currency:    'usd',
+        name:        'Snap Scrip',
+        description: 'St. Joan of Arc Grade School Scrip',
+        panelLabel:  'Checkout',
+        token:       token
+      });
+    }
 });
 
 snapscripApp.controller('CardController', function($scope, CardService) {
