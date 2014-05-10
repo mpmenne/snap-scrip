@@ -1,3 +1,4 @@
+<div class="menuPadding"></div>
 <div>
   <div class="ui horizontal divider">
     <i class="circular down icon"></i>
@@ -21,7 +22,7 @@
     </h2>
 
     <div class="ui divided grid" ng-init="fee=0;feeTitle">
-      <div class="row" ng-class="{hovered: hover1, selectediv: clicked1}" ng-mouseenter="hover1 = true" ng-mouseleave="hover1 = false" ng-click="clicked1=!clicked1; clicked2=false; clicked3=false; addTransactionFee('', 0)">
+      <div id="checkorcash" class="row" ng-class="{hovered: hover1, selectediv: clicked1}" ng-mouseenter="hover1 = true" ng-mouseleave="hover1 = false" ng-click="clicked1=!clicked1; clicked2=false; clicked3=false; addTransactionFee('', 0)">
         <div class="twelve wide column">
            <h2 class="ui huge header">
              <i class="money icon"></i>
@@ -59,7 +60,7 @@
           <!--</h4>-->
         <!--</div>-->
       <!--</div>-->
-      <div class="row" ng-class="{hovered: hover3, selectediv: clicked3}" ng-mouseenter="hover3 = true" ng-mouseleave="hover3 = false" ng-click="clicked3=!clicked3; clicked1=false; clicked2=false; addTransactionFee('Credit Card Check Fee', 5)">
+      <div id="creditcard" class="row" ng-class="{hovered: hover3, selectediv: clicked3}" ng-mouseenter="hover3 = true" ng-mouseleave="hover3 = false" ng-click="clicked3=!clicked3; clicked1=false; clicked2=false; addTransactionFee('Credit Card Check Fee', 5)">
         <div class="twelve wide column">
           <h2 class="ui huge header">
             <i class="payment icon"></i>
@@ -86,7 +87,7 @@
           </a>
         </div>
         <div class="two left aligned wide column">
-          <a class="ui green right labeled icon button" href="/#/review" ng-class="{disabled: !clicked1 && !clicked2 && !clicked3}">
+          <a id="reviewOrderButton" class="ui green right labeled icon button" href="/#/review" ng-class="{disabled: !clicked1 && !clicked2 && !clicked3}">
             <i class="right arrow icon"></i>
             Review Order
           </a>

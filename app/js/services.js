@@ -35,7 +35,13 @@ snapscripApp.factory('CartService', function() {
         });
       }
     },
+    'totalCartAmount': function(){
+      return _.reduce(orders, function(total, item) {
+        return total + parseFloat(item.value);
+      }, 0);
+    },
     'removeItemFromCart': function(cartItem) {
+      _.remove(orders, function(order) { return order.name === cartItem.name && parseInt(order.value) === parseInt(cartItem.value)} );
       cartItem.deleted = true;
     },
     'clearCart': function() {
@@ -132,7 +138,7 @@ snapscripApp.factory('CardService', function($http, $q) {
         {"key":"redlobster", "name":"Red Lobster", "path": "img/redlobster-giftcard.jpg", "logo": "img/redlobster-logo.jpeg", "percentage": 9, "values": ["25"], "tags":"food, restaurant"},
         {"key":"regalentertainement", "name":"Regal Entertainment", "path": "img/regal-giftcard.jpeg", "logo": "img/regal-logo.jpg", "percentage": 8, "values": ["25"], "tags":"movies, fun"},
         {"key":"rubytuesday", "name":"Ruby Tuesdays", "path": "img/rubytuesday-giftcard.jpg", "logo": "img/rubytuesday-logo.png", "percentage": 8, "values": ["25"], "tags":"food, restaurant"},
-        {"key":"shopnsave", "name":"Shop n Save", "path": "img/shopnsave-giftcard.gif", "logo": "img/shopnsave-logo.gif", "percentage": 4, "values": ["25"], "tags":"food, groceries"},
+        {"key":"shopnsave", "name":"Shop n Save", "path": "img/shopnsave-giftcard.png", "logo": "img/shopnsave-giftcard.png", "percentage": 4, "values": ["25"], "tags":"food, groceries"},
         {"key":"steaknshake", "name":"Steak n Shake", "path": "img/steaknshake-giftcard.png", "logo": "img/steaknshake-logo.gif", "percentage": 8, "values": ["10"], "tags":"food, restaurant"},
         {"key":"subway", "name":"Subway", "path": "img/subway-giftcard.png", "logo": "img/subway-logo.jpe", "percentage": 3, "values": ["10", "50"], "tags":"food, restaurant"},
         {"key":"tacobell", "name":"Taco Bell", "path": "img/tacobell-giftcard.jpg", "logo": "img/tacobell-logo.jpeg", "percentage": 5, "values": ["10"], "tags":"food, restaurant"},
@@ -145,9 +151,12 @@ snapscripApp.factory('CardService', function($http, $q) {
         {"key":"wendys", "name":"Wendys", "path": "img/wendys-giftcard.jpg", "logo": "img/wendys-logo.jpg", "percentage": 4, "values": ["10"], "tags":"food, restaurant"},
         {"key":"wholefoods", "name":"Whole Foods", "path": "img/wholefoods-giftcard.jpeg", "logo": "img/wholefoods-logo.jpeg", "percentage": 3, "values": ["25", "100"], "tags":"food, groceries"},
         {"key":"williamssonoma", "name":"Williams Sonoma", "path": "img/williams-sonoma.jpg", "logo": "img/williamssonoma-logo.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"home"},
-        {"key":"zappos", "name":"Zappos.com", "path": "img/zappos-giftcard.jpeg", "logo": "img/zappos-logo.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"clothes, shoes"}
+        {"key":"zappos", "name":"Zappos.com", "path": "img/zappos-giftcard.jpeg", "logo": "img/zappos-logo.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"clothes, shoes"},
+        {"key":"dierbergs", "name":"Dierbergs", "path": "img/dierbergs.jpeg", "logo": "img/dierbergs.jpeg", "percentage": 5, "values": ["25", "100"], "tags":"groceries, food, local"},
+        {"key":"savealot", "name":"Save a Lot", "path": "img/savealot-giftcard.jpeg", "logo": "img/savealot-giftcard.jpeg", "percentage": 5, "values": ["10"], "tags":"groceries, food, local"},
+        {"key":"savealot", "name":"Save a Lot", "path": "img/savealot-giftcard.jpeg", "logo": "img/savealot-giftcard.jpeg", "percentage": 5, "values": ["10"], "tags":"groceries, food, local"}
+
       ];
-  console.log(giftcards);
 
   return {
     findCard: function(name) {
@@ -174,12 +183,6 @@ snapscripApp.factory('CardService', function($http, $q) {
     },
     allCards: function() {
       if (giftcards) { return giftcards; }
-//      var findCardPromise = $q.defer();
-//      $http.get('rest/cards.json').success(function(returnedGiftCards) {
-//        giftcards = returnedGiftCards;
-//        findCardPromise.resolve(returnedGiftCards);
-//      }).error(function(data) { alert('error retrieving gift cards'); });
-//      return giftcards;
     }
   }
 });
@@ -216,49 +219,61 @@ snapscripApp.factory('PdfService', function($http, $q, $filter) {
   var totalOrderAggregate = $filter('orderAggregate');
   var totalAggregate = $filter('totalAggregate');
   var mostRecent;
-  var mostRecentOrderId;
+  var test = false;
   return {
+    'testPdfs': function() {
+        test = true;
+    },
     'getPdf': function(orders) {
       var orderTotals = totalOrderAggregate(orders.orders);
       var pdfPromise = $q.defer();
       $http.get('rest/form.json').success(function(formData) {
-          var pageData1 = formData[0].pages[0].image;
-          var pageData2 = formData[0].pages[1].image;
+        $http.get('rest/page_image_1.json').success(function(pageOneImage) {
+          $http.get('rest/page_image_2.json').success(function(pageTwoImage) {
+            var pageData1 = pageOneImage[0].path;
+            var pageData2 = pageTwoImage[0].path;
 
-          var pageOneCoords = formData[0].pages[0].fields;
-          var pageTwoCoords = formData[0].pages[1].fields;
+            var pageOneCoords = formData[0].pages[0].fields;
+            var pageTwoCoords = formData[0].pages[1].fields;
 
-          var doc = new jsPDF();
-          doc.addImage(pageData1, 'JPEG', 0, 0, 0, 0);
-          doc.setFontSize(10);
-          doc.text(73, 57, '' + orders.orderInformation.firstName + ' ' + orders.orderInformation.lastName); //order name
-          doc.text(73, 62, '' + orders.orderInformation.phone); //order phone number
-          doc.text(163, 57, '' + (new Date().getMonth() + 1)  + '-' + new Date().getDate() + '-' + new Date().getFullYear());
-          var markRectoryPickup = orders.orderInformation.rectoryPickup ? 'X' : '';
-          var markAfterMass = orders.orderInformation.afterMass ? 'X' : '';
-          var markSendHome = orders.orderInformation.sendHome ? 'X' : '';
-          doc.text(117, 212, markRectoryPickup); // scrip-table
-          doc.text(117, 217, markAfterMass); // rectory
-          doc.text(117, 222, markSendHome); // child
-          doc.text(183, 222, '' + orders.orderInformation.childName); // child
-          doc.text(183, 229, '' + orders.orderInformation.homeroom); // homeroom
-          doc.text(163, 250, '');  //In Stock Total
-          doc.text(163, 255, '' + totalAggregate(orderTotals));  //Special Total
-          doc.text(163, 263, '' + totalAggregate(orderTotals));  //Total
-          doc.text(137, 271, '' + orders.orderInformation.checkNumber);  //Check Number
-          doc.text(20, 20, 'printed by Snap-Scrip');
-          for (var i = 0; i < pageOneCoords.length; i++) {
-            var coords1 = pageOneCoords[i];
-            var matchingOrderTotal = _.filter(orderTotals, function(order) { return order.name == coords1.name});
-            console.log('Matching Order ' + matchingOrderTotal);
-            if (matchingOrderTotal.length) {
-              doc.text(parseInt(coords1.quantity.x), parseInt(coords1.quantity.y), '' + matchingOrderTotal[0].count);
-              doc.text(parseInt(coords1.value.x), parseInt(coords1.value.y), '' + matchingOrderTotal[0].total);
+            var doc = new jsPDF();
+            doc.addImage(pageData1, 'JPEG', 0, 0, 0, 0);
+            doc.setFontSize(10);
+            doc.text(73, 57, '' + orders.orderInformation.firstName + ' ' + orders.orderInformation.lastName); //order name
+            doc.text(73, 62, '' + orders.orderInformation.phone); //order phone number
+            doc.text(163, 57, '' + (new Date().getMonth() + 1)  + '-' + new Date().getDate() + '-' + new Date().getFullYear());
+            var markRectoryPickup = orders.orderInformation.rectoryPickup ? 'X' : '';
+            var markAfterMass = orders.orderInformation.afterMass ? 'X' : '';
+            var markSendHome = orders.orderInformation.sendHome ? 'X' : '';
+            doc.text(117, 212, markRectoryPickup); // scrip-table
+            doc.text(117, 217, markAfterMass); // rectory
+            doc.text(117, 222, markSendHome); // child
+            doc.text(183, 222, '' + orders.orderInformation.childName); // child
+            doc.text(183, 229, '' + orders.orderInformation.homeroom); // homeroom
+            doc.text(163, 250, '');  //In Stock Total
+            doc.text(163, 255, '' + totalAggregate(orderTotals));  //Special Total
+            doc.text(163, 263, '' + totalAggregate(orderTotals));  //Total
+            doc.text(137, 271, '' + orders.orderInformation.checkNumber);  //Check Number
+            doc.text(20, 20, 'printed by Snap-Scrip');
+            for (var i = 0; i < pageOneCoords.length; i++) {
+              var coords1 = pageOneCoords[i];
+              var matchingOrderTotal = _.filter(orderTotals, function(order) { return order.key == coords1.key});
+              console.log('Matching Order ' + matchingOrderTotal);
+              if (matchingOrderTotal.length) {
+                doc.text(parseInt(coords1.quantity.x), parseInt(coords1.quantity.y), '' + matchingOrderTotal[0].count);
+                doc.text(parseInt(coords1.value.x), parseInt(coords1.value.y), '' + matchingOrderTotal[0].total);
+                if (test) {
+                  if (coords1.value.x > 100) {
+                      doc.text(parseInt(coords1.value.x) - 90, parseInt(coords1.value.y), '' + matchingOrderTotal[0].name);
+                  } else {
+                    doc.text(5, parseInt(coords1.value.y), '' + matchingOrderTotal[0].name);
+                  }
+                }
+              }
             }
-          }
-          doc.addPage();
-          doc.addImage(pageData2, 'JPEG', 0, 0, 0, 0);
-          doc.setFontSize(10);
+            doc.addPage();
+            doc.addImage(pageData2, 'JPEG', 0, 0, 0, 0);
+            doc.setFontSize(10);
 //          doc.text(128, 56, 'Special Order 1');
 //          doc.text(164, 56, 'Value');
 //          doc.text(181, 56, 'Qty');
@@ -300,18 +315,24 @@ snapscripApp.factory('PdfService', function($http, $q, $filter) {
 //          doc.text(120, 230, 'Check Number: ' + orders.orderInformation.checkNumber);
 //          doc.text(120, 235, 'Routing Number: ' + orders.orderInformation.routingNumber);
 //          doc.text(120, 240, 'Account Number: ' + orders.orderInformation.accountNumber);
-          doc.text(120, 86, 'Total');
-          doc.text(20, 20, 'printed by Snap-Scrip');
-          for (var i = 0; i < pageTwoCoords.length; i++) {
-            var coords2 = pageTwoCoords[i];
-            var matchingOrderTotal = _.filter(orderTotals, function(order) { return order.name == coords2.name});
-            if (matchingOrderTotal.length) {
-              doc.text(parseInt(coords2.quantity.x), parseInt(coords2.quantity.y), '' + matchingOrderTotal[0].count);
-              doc.text(parseInt(coords2.value.x), parseInt(coords2.value.y), '' + matchingOrderTotal[0].total);
+            doc.text(120, 86, 'Total');
+            doc.text(20, 20, 'printed by Snap-Scrip');
+            for (var i = 0; i < pageTwoCoords.length; i++) {
+              var coords2 = pageTwoCoords[i];
+              var matchingOrderTotal = _.filter(orderTotals, function(order) { return order.name == coords2.name});
+              if (matchingOrderTotal.length) {
+                doc.text(parseInt(coords2.quantity.x), parseInt(coords2.quantity.y), '' + matchingOrderTotal[0].count);
+                doc.text(parseInt(coords2.value.x), parseInt(coords2.value.y), '' + matchingOrderTotal[0].total);
+                if (test) {
+                  doc.text(parseInt(coords2.value.x) - 80, parseInt(coords2.value.y), '' + matchingOrderTotal[0].name);
+                }
+              }
             }
-          }
-          pdfPromise.resolve(doc);
+            pdfPromise.resolve(doc);
 //          doc.save('Test.pdf');
+          });
+        });
+
       }).error(function(data) {
         alert("error retrieving form data");
       });
@@ -320,91 +341,6 @@ snapscripApp.factory('PdfService', function($http, $q, $filter) {
     'downloadCurrent': function() {
       mostRecent.save('123');
 //      mostRecent.save(mostRecentOrderId);
-    },
-    'printAll': function(){
-      var pdfPromise = $q.defer();
-      $http.get('rest/form.json').success(function(formData) {
-        var pageData1 = formData[0].pages[0].image;
-        var pageData2 = formData[0].pages[1].image;
-
-        var pageOneCoords = formData[0].pages[0].fields;
-        var pageTwoCoords = formData[0].pages[1].fields;
-
-        var doc = new jsPDF();
-        doc.addImage(pageData1, 'JPEG', 0, 0, 0, 0);
-        doc.setFontSize(10);
-        doc.text(73, 57, 'Mike Menne');
-        doc.text(73, 62, '314 477 9816');
-        doc.text(163, 57, '' + (new Date().getMonth() + 1)  + '-' + new Date().getDate() + '-' + new Date().getFullYear());
-        doc.text(117, 212, 'X');
-        doc.text(117, 217, 'X');
-        doc.text(117, 222, 'X');
-        doc.text(163, 250, 'In Stock Total');
-        doc.text(163, 255, 'Special Total');
-        doc.text(163, 263, 'Total');
-        doc.text(137, 271, 'Check Number');
-        doc.text(20, 20, 'printed by Snap-Scrip');
-        for (var i = 0; i < pageOneCoords.length; i++) {
-          var coords1 = pageOneCoords[i];
-          doc.text(parseInt(coords1.quantity.x), parseInt(coords1.quantity.y), coords1.amount);
-          doc.text(parseInt(coords1.value.x), parseInt(coords1.value.y), coords1.amount);
-        }
-        doc.addPage();
-        doc.addImage(pageData2, 'JPEG', 0, 0, 0, 0);
-        doc.setFontSize(10);
-//        doc.text(128, 56, 'Special Order 1');
-//        doc.text(164, 56, 'Value');
-//        doc.text(181, 56, 'Qty');
-//        doc.text(191, 56, 'Total');
-//        doc.text(128, 61, 'Special Order 2');
-//        doc.text(164, 61, 'Value');
-//        doc.text(181, 61, 'Qty');
-//        doc.text(191, 61, 'Total');
-//        doc.text(128, 65, 'Special Order 3');
-//        doc.text(164, 65, 'Value');
-//        doc.text(181, 65, 'Qty');
-//        doc.text(191, 65, 'Total');
-//        doc.text(128, 69, 'Special Order 4');
-//        doc.text(164, 68, 'Value');
-//        doc.text(181, 69, 'Qty');
-//        doc.text(191, 69, 'Total');
-//        doc.text(128, 73, 'Special Order 5');
-//        doc.text(164, 73, 'Value');
-//        doc.text(181, 73, 'Qty');
-//        doc.text(191, 73, 'Total');
-//        doc.text(128, 77, 'Special Order 6');
-//        doc.text(164, 77, 'Value');
-//        doc.text(181, 77, 'Qty');
-//        doc.text(191, 77, 'Total');
-//        doc.text(128, 81, 'Special Order 7');
-//        doc.text(164, 81, 'Value');
-//        doc.text(181, 81, 'Qty');
-//        doc.text(191, 81, 'Total');
-//        doc.text(128, 86, 'Special Order 8');
-//        doc.text(164, 86, 'Value');
-//        doc.text(181, 86, 'Qty');
-        doc.rect(118, 200, 80, 40);
-        doc.text(120, 205, 'Payment Authorization:');
-        doc.text(120, 215, 'This payment was authorized by:');
-        doc.setFontStyle('bold');
-        doc.text(120, 220, 'Mike Menne at 2:22 PM on 3-9-2014');
-        doc.setFontStyle('normal');
-        doc.text(120, 225, 'Check Number: 405');
-        doc.text(120, 230, 'Routing Number: 123456');
-        doc.text(120, 235, 'Account Number: 12345345677');
-        doc.text(120, 86, 'Total');
-        doc.text(20, 20, 'printed by Snap-Scrip');
-        for (var i = 0; i < pageTwoCoords.length; i++) {
-          var coords2 = pageTwoCoords[i];
-          doc.text(parseInt(coords2.quantity.x), parseInt(coords2.quantity.y), coords2.amount);
-          doc.text(parseInt(coords2.value.x), parseInt(coords2.value.y), coords2.amount);
-        }
-        pdfPromise.resolve(doc);
-        //doc.save('Test.pdf');
-      }).error(function(data) {
-            alert("error retrieving form data");
-          });
-      return pdfPromise;
     }
   }
 });

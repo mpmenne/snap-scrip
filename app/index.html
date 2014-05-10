@@ -30,8 +30,8 @@
       <a class="launch item" href="/">
         <i class="icon list layout"></i>
       </a>
-      <div class="title item block">
-        <span class="logoColor">Snap Scrip</span>
+      <div id="homeButton" class="title item block">
+        <a class="coolLink" href="#/home"><span class="logoColor">Snap Scrip</span></a>
       </div>
       <!--<div class="item">-->
       <!--</div>-->
@@ -43,16 +43,16 @@
       </div>
       <div class="right menu" ng-controller="CartController">
         <div id="giftCardCount" class="item">
-        Giftcards <span class="bigBold">{{itemsInCart | countAggregate}}</span>
+          <a class="coolLink" href="#/cart">Giftcards <span id="giftCardCountNumber" class="bigBold">{{itemsInCart | countAggregate}}</span></a>
         </div>
         <div id="giftCardTotal" class="item">
-          Total <span class="bigBold">${{itemsInCart | valueAggregate}}</span>
+          <a class="coolLink" href="#/cart">Total <span id="giftCardValueNumber" class="bigBold">${{itemsInCart | valueAggregate}}</span></a>
         </div>
         <div id="giftCardContribution" class="item">
-          Contribution <span class="bigBold">${{itemsInCart | donationAggregate}}</span>
+          <a class="coolLink" href="#/cart">Contribution <span id="giftCardContributionNumber" class="bigBold">${{itemsInCart | donationAggregate}}</span></a>
         </div>
         <div id="checkout" class="item">
-          <a class="ui fluid green left labeled icon button" href="/#/order">
+          <a id="checkoutButton" class="ui fluid green left labeled icon button" href="/#/order">
             Checkout
           </a>
         </div>
@@ -63,7 +63,7 @@
   <div class="main container">
     <div ui-view></div>
 
-    <div ng-if="baseCtrl.$location.url().indexOf('home') != -1 || baseCtrl.$location.url().indexOf('cards') != -1">
+    <div ng-if="baseCtrl.$location.url().indexOf('home') != -1 || baseCtrl.$location.url().indexOf('cards') != -1 || baseCtrl.$location.url().indexOf('cart') != -1"">
       <div ng-include src='"templates/cardSearch.html"'></div>
     </div>
   </div>

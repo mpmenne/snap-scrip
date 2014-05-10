@@ -42,7 +42,7 @@
       </div>
       <div class="centered">
         <div class="four wide right aligned column" ng-click="processPayment()">
-          <a class="ui green right labeled icon button">
+          <a id="completeOrderButton" class="ui green right labeled icon button" ng-disabled="viewLoading">
             <i class="right arrow icon"></i>
             Complete Order
           </a>

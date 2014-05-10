@@ -1,39 +1,11 @@
+<div class="menuPadding"></div>
+<div class="menuPadding"></div>
 <div>
-  <div class="ui horizontal divider">
-    <i class="circular down icon"></i>
-  </div>
   <div class="orderreview">
     <div class="ui grid">
       <div class="row">
-        <div class="four wide aligned center column">
-          <div class="ui large header">Cart Summary</div>
-        </div>
-        <div class="two wide column">
-          <div id="giftCardCount" class="ui header">
-            <div class="sub center aligned header">Giftcards</div>
-            {{itemsInCart | countAggregate}}
-          </div>
-        </div>
-        <div class="two wide column">
-          <div class="ui header">
-            <div class="sub aligned center header">Total</div>
-            ${{itemsInCart | valueAggregate}}
-          </div>
-        </div>
-        <div class="two wide column">
-          <div class="ui header">
-            <div class="sub aligned center header">Contribution</div>
-            ${{itemsInCart | donationAggregate}}
-          </div>
-        </div>
-        <div class="three wide column">
-          <a class="ui fluid green left labeled icon button" href="/#/order">
-            <i class="right arrow icon"></i>
-            Buy this Stuff
-          </a>
-        </div>
+        <h2>Cart</h2>
       </div>
-      <div class="row"></div>
       <div class="row">
         <div class="sixteen wide column">
           <div class="ui divided vertical list">
@@ -43,9 +15,17 @@
                 <p>{{cartItem.name}} ${{cartItem.value}} Gift Card</p>
               </div>
               <div class="right floated ui button" ng-click="removeItem(cartItem)">
-                Cancel
+                Remove
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="twelve wide column"></div>
+        <div class="four right aligned wide column">
+          <div class="ui right green button">
+            <a class="coolLink" href="#/review">Checkout</a>
           </div>
         </div>
       </div>

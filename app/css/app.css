@@ -153,6 +153,20 @@ div.block {
     display:block;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
+.coolLink {
+    text-decoration: none;
+}
+
+div > a.coolLink {
+    text-decoration: none;
+    text-decoration-color: #ffffff;
+    color: white;
+}
+
 @media (min-width: 200px) and (max-width: 829px) {
     .menuPadding {
         width: 100%;

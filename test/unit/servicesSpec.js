@@ -26,16 +26,16 @@ describe('services', function() {
 
   describe('card service', function() {
 
-    it('should actually have the service', function() {
+    xit('should actually have the service', function() {
       expect(CardService).toBeTruthy();
     });
 
-    it('should return cards', function() {
+    xit('should return cards', function() {
       $httpBackend.flush();
       expect(CardService.allCards()).toBeTruthy();
     })
 
-    it('all cards should have a name', function() {
+    xit('all cards should have a name', function() {
       $httpBackend.flush();
       var cards=CardService.allCards().length;
       for(var card in cards) {
@@ -46,7 +46,7 @@ describe('services', function() {
       }
     });
 
-    it('should allow us to search for a specific card', function() {
+    xit('should allow us to search for a specific card', function() {
       var card;
       $httpBackend.flush();
       CardService.findCard('Amazon').promise.then(function(data){
@@ -56,7 +56,7 @@ describe('services', function() {
         expect(data.path).toBeTruthy();
       });
     });
-    it('should allow us to search for url friendly names', function() {
+    xit('should allow us to search for url friendly names', function() {
       $httpBackend.flush();
       CardService.findCard('amazon').promise.then(function(data){
         expect(data.path).toBeTruthy();
@@ -165,6 +165,13 @@ describe('services', function() {
       CartService.addTransactionFee('Electronic Check Fee', 1.5);
       expect(CartService.allCartItems().length).toBe(2);
     });
+    it('cart can tell us the total value of all items', function() {
+      CartService.addItemToCart({ name:'Amazon', value:50, logo:'/logo', path:'/path', percentage:4}, 50);
+      CartService.addItemToCart({ name:'Amazon', value:25, logo:'/logo', path:'/path', percentage:4}, 25);
+      CartService.addItemToCart({ name:'Amazon', value:100, logo:'/logo', path:'/path', percentage:4}, 100);
+      CartService.addTransactionFee('Electronic Check Fee', 1.5);
+      expect(CartService.totalCartAmount()).toBe(176.5);
+    })
   });
 
   describe('PdfService', function() {

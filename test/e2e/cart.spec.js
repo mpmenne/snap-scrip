@@ -6,7 +6,7 @@ describe('cart page', function() {
     browser.get('/#/cards/amazon');
   })
 
-  it('adding a card should put it in the cart', function() {
+  xit('adding a card should put it in the cart', function() {
     var addTwentyFiveButton = element(by.id("add25"));
     addTwentyFiveButton.click();
     browser.get('/#/cart');
@@ -14,7 +14,7 @@ describe('cart page', function() {
     expect(giftCardCount.getText()).toBe('Giftcards 1');
   });
 
-  it('adding two cards should put both in the cart', function() {
+  xit('adding two cards should put both in the cart', function() {
     var addTwentyFiveButton = element(by.id("add25"));
     addTwentyFiveButton.click();
     addTwentyFiveButton.click();

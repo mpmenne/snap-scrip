@@ -7,13 +7,19 @@ describe('card page', function() {
     browser.get('/#/cards/amazon');
   })
 
+  it('clicking the home button should get you back home', function() {
+    var homeButton = element(by.id("homeButton"));
+    homeButton.click();
+    expect(browser.getCurrentUrl()).toBe("http://localhost:8018/#/home");
+  });
+
   it('the url should match the page header', function() {
     var pageHeader = element(by.id("cardHeader"));
     expect(pageHeader.getText()).toBe('Amazon');
   });
 
   it('amazon card detail should show up as /#/cards/amazon', function() {
-    expect(browser.getCurrentUrl()).toBe("http://localhost:8009/#/cards/amazon");
+    expect(browser.getCurrentUrl()).toBe("http://localhost:8018/#/cards/amazon");
   });
 
   it('add $25 dollar giftcard to basket', function() {

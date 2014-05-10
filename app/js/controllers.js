@@ -100,13 +100,17 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
       })
 });
 
-snapscripApp.controller('CartController', function($scope, CartService) {
+snapscripApp.controller('CartController', function($scope, CartService, LocationService) {
   var cartCtrl = this;
   $scope.cartItems = ['a', 'b'];
   $scope.itemsInCart = CartService.allCartItems();
 
   $scope.removeItem = function(card) {
     CartService.removeItemFromCart(card);
+  };
+
+  $scope.showCart = function() {
+    LocationService.cart();
   };
 
 });
@@ -123,35 +127,29 @@ snapscripApp.controller('ReviewController', function($scope, PdfService, CartSer
     $scope.giftCards = function(cartItem) {
       return cartItem.percentage;
     }
-    $scope.confirmOrder = function() {
-      OrderService.save(
-          {'firstName': $scope.firstName, 'lastName': $scope.lastName, 'phone': $scope.phone, 'email': $scope.email,
-            'rectoryPickup':$scope.rectoryPickup, 'afterMass':$scope.afterMass, 'sendHome':$scope.sendHome, 'childName':$scope.childName, 'homeroom':$scope.homeroom,
-            'checkNumber':$scope.checkNumber, 'checkAmount':$scope.checkAmount
-          },
-          $scope.allCartItems()
-      );
-      LocationService.confirmation();
-    }
+    $scope.viewLoading = false;
+
     $scope.processPayment = function() {
       console.log('Processing');
       var token = function(res) {
-        $http.post('/orders').success(function(giftcards) {
-
-          findCardPromise.resolve({});
-        }).error(function(data) { alert('Error processing credit card payment. \n Please contact the St. Joan of Arc Rectory'); });
+        $scope.viewLoading = true;
+        res.order = {'info':res.card, 'items':$scope.allCartItems(), 'totalCharge':CartService.totalCartAmount() * 100};
+        $http.post('/orders', res).success(function(giftcards) {
+          $scope.viewLoading = false;
+          LocationService.confirmation();
+        }).error(function(data) {
+            $scope.viewLoading = false;
+            alert('Error processing credit card payment. \n Please contact the St. Joan of Arc Rectory');
+        });
       };
 
 
-      var orderTotal = _.reduce($scope.allCartItems(), function(total, item) {
-        return total + item.amount;
-      });
-      console.log('order total ' + orderTotal);
+      console.log('processing order for ' + CartService.totalCartAmount());
 
       StripeCheckout.open({
-        key:         'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+        key:         'pk_test_tN69u31YtFcON5Mil68f3YwA',
         address:     true,
-        amount:      orderTotal,
+        amount:      CartService.totalCartAmount() * 100,
         currency:    'usd',
         name:        'Snap Scrip',
         description: 'St. Joan of Arc Grade School Scrip',
@@ -327,14 +325,33 @@ snapscripApp.factory('LocationService', function($location) {
   }
 });
 
-snapscripApp.controller('TestController', function($scope, PdfService) {
+snapscripApp.controller('TestController', function($scope, PdfService, CardService, CartService) {
   var testController = this;
 
   $scope.pdfSource = 'admin.html';
   $scope.PdfService = PdfService;
+  PdfService.testPdfs();
 
-  $scope.generatePdf = function(order) {
-    var pdfPromise = PdfService.getPdf(order)
+  $scope.generatePdf = function() {
+
+    var giftcards = CardService.allCards();
+    _.forEach(giftcards, function(giftcard) {
+      CartService.addItemToCart(giftcard, giftcard.values[0]);
+    });
+
+    var testOrder = {
+      orderInformation: {
+        name: 'Megan Menne',
+        phoneNumber: '314 304 3148',
+        accountNumber: '123455',
+        routingNumber: '123423434535',
+        checkNumber: 1001,
+        checkAmount: 100
+      },
+      orders: CartService.allCartItems()
+    };
+
+    var pdfPromise = PdfService.getPdf(testOrder);
     pdfPromise.promise.then(function(pdf) {
       $scope.pdfSource = pdf.output('datauristring');
       $('iframe').attr('src', $scope.pdfSource);
@@ -342,28 +359,6 @@ snapscripApp.controller('TestController', function($scope, PdfService) {
     });
   }
 
-  $scope.testOrder = {
-    orderInformation: {
-      name: 'Megan Menne',
-      phoneNumber: '314 304 3148',
-      accountNumber: '123455',
-      routingNumber: '123423434535',
-      checkNumber: 1001,
-      checkAmount: 100
-    },
-    orders: [
-      {name:'Amazon', value:25},
-      {name:'Amazon', value:25},
-      {name:'Amazon', value:25},
-      {name:'Applebees', value:50},
-      {name:'Applebees', value:50},
-      {name:'Biggies Restaurant', value:25},
-      {name:'Chris Pancakes', value:25},
-      {name:'KFC', value:5},
-      {name:'Le Grands', value:25}
-    ]
-  };
-
-  $scope.generatePdf($scope.testOrder);
+  $scope.generatePdf();
 
 });
