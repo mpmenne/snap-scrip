@@ -7,14 +7,18 @@ describe('controllers', function(){
   var $filter;
   var aggregateFilter;
   var orderAggregate;
+  var isStockedFilter;
+  var $httpBackend;
 
   beforeEach(module('snapscripApp_controllers'));
-  beforeEach(inject(function(_$rootScope_, $controller, _$filter_) {
+  beforeEach(inject(function(_$rootScope_, $controller, _$filter_, _$httpBackend_) {
     $scope = _$rootScope_.$new();
     baseController = $controller('BaseController', {$scope:$scope});
     $filter = _$filter_;
+    $httpBackend = _$httpBackend_;
     aggregateFilter = $filter('donationAggregate');
     orderAggregate = $filter('orderAggregate');
+    isStockedFilter = $filter('isStockedFilter');
   }));
 
   it('should work right', function() {
@@ -49,18 +53,48 @@ describe('controllers', function(){
       expect(orderAggregate([])).toEqual([]);
     });
     it('orderAggregate should list name, total, and count for each giftcard', function() {
-      expect(orderAggregate([{name:'Amazon', value:25}])).toEqual([{name:'Amazon', total:25, count:1}]);
+      expect(orderAggregate([{key:'amazon', value:25}])).toEqual([{key:'amazon', total:25, count:1}]);
     });
     it('ordering multiple giftcards with the same name should affect count and values', function() {
-      expect(orderAggregate([{name:'Amazon', value:25}, {name:'Amazon', value:25}])).toEqual([{name:'Amazon', total:50, count:2}]);
-      expect(orderAggregate([{name:'Amazon', value:25}, {name:'Amazon', value:25}, {name:'Amazon', value:100}])).toEqual([{name:'Amazon', total:150, count:3}]);
+      expect(orderAggregate([{key:'amazon', value:25}, {key:'amazon', value:25}])).toEqual([{key:'amazon', total:50, count:2}]);
+      expect(orderAggregate([{key:'amazon', value:25}, {key:'amazon', value:25}, {key:'amazon', value:100}])).toEqual([{key:'amazon', total:150, count:3}]);
     });
     it('ordering different giftcards should give the total for each card', function() {
-      expect(orderAggregate([{name:'Amazon', value:25}, {name:'Best Buy', value:50}])).toEqual([{name:'Amazon', total:25, count:1}, {name:'Best Buy', total:50, count:1}]);
+      expect(orderAggregate([{key:'amazon', value:25}, {key:'bestbuy', value:50}])).toEqual([{key:'amazon', total:25, count:1}, {key:'bestbuy', total:50, count:1}]);
     });
     it('ordering multiples of different giftcards should give the total for each card', function() {
-      expect(orderAggregate([{name:'Amazon', value:25}, {name:'Best Buy', value:50}, {name:'Amazon', value:50}, {name:'Bob Evans', value:10}])).toEqual([{name:'Amazon', total:75, count:2}, {name:'Best Buy', total:50, count:1}, {name:'Bob Evans', total:10, count:1}]);
+      expect(orderAggregate([{key:'amazon', value:25}, {key:'bestbuy', value:50}, {key:'amazon', value:50}, {key:'bobevans', value:10}])).toEqual([{key:'amazon', total:75, count:2}, {key:'bestbuy', total:50, count:1}, {key:'bobevans', total:10, count:1}]);
     });
+  });
+
+  describe('isStocked filter', function() {
+
+    beforeEach(inject(function() {
+      $httpBackend.expectGET('/rest/form.json').
+          respond([
+            {"key":"amazon", "name":"Amazon", "instock":false},
+            {"key":"bestbuy", "name":"Best Buy", "instock":true},
+            {"key":"dierbergs", "name":"Dierbergs", "instock":true}
+          ]);
+    }));
+    it('isStocked should exist', function() {
+      expect(isStockedFilter).toBeDefined();
+    });
+    it('cards labeled as instock should return true', function() {
+      $httpBackend.flush();
+      expect(isStockedFilter('bestbuy')).toEqual(true);
+    });
+    it('cards labeled as not instock should return false', function() {
+      console.log("The evil test!!!!!!!!!!!!!!!!");
+      $httpBackend.flush();
+      expect(isStockedFilter('amazon')).toEqual(false);
+    });
+    it('dierbergs should be instock', function() {
+      console.log("The evil test!!!!!!!!!!!!!!!!");
+      $httpBackend.flush();
+      expect(isStockedFilter('dierbergs')).toEqual(true);
+    });
+
   });
 
 })

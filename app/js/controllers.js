@@ -234,23 +234,47 @@ snapscripApp.filter('donationAggregate', function() {
 snapscripApp.filter('orderAggregate', function() {
   return function(orders) {
     var totals = [];
-    var cardGroups = _.groupBy(orders, "name");
-    for (var cardName in cardGroups) {
+    var cardGroups = _.groupBy(orders, "key");
+    for (var cardKey in cardGroups) {
       var count = 0;
       var totalValue = 0;
-      var cardOrders = _.filter(orders, function(order) { return order.name == cardName});
-      for (var cardOrderNumber in cardOrders) {
-        count++;
-        totalValue = totalValue + cardOrders[cardOrderNumber].value;
+      for (var i = 0; i < orders.length; i++) {
+        if (orders[i].key === cardKey) {
+          count++;
+          totalValue = totalValue + orders[i].value;
+        }
       }
       if (count) {
-        totals.push({name:cardName, total:totalValue, count:count});
+        totals.push({key:cardKey, total:totalValue, count:count});
       }
     }
     return totals;
   }
 });
-
+snapscripApp.filter('isStockedFilter', function($http) {
+  var stockedGiftcards = [];
+  $http.get('/rest/form.json').success(function(cardConfigs) {
+    for (var i = 0; i < cardConfigs[0].pages[0].fields.length; i++) {
+      if (cardConfigs[0].pages[0].fields[i].instock) {
+        stockedGiftcards.push(cardConfigs[0].pages[0].fields[i]);
+      }
+    }
+    for (var i = 0; i < cardConfigs[0].pages[1].fields.length; i++) {
+      if (cardConfigs[0].pages[1].fields[i].instock) {
+        stockedGiftcards.push(cardConfigs[0].pages[1].fields[i]);
+      }
+    }
+  })
+  return function(key) {
+    if (stockedGiftcards.length == 0) { return false; }
+    for (var i = 0; i < stockedGiftcards.length; i++) {
+      if (stockedGiftcards[i].key === key) {
+        return true;
+      }
+    }
+    return false;
+  }
+});
 snapscripApp.filter('cardName', function() {
   return function(imagePath) {
     return imagePath.split('/')[1].split('.')[0].split('-')[0];
