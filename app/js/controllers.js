@@ -144,7 +144,7 @@ snapscripApp.controller('ReviewController', function($scope, PdfService, CartSer
       console.log('processing order for ' + CartService.totalCartAmount());
 
       StripeCheckout.open({
-        key:         'pk_test_tN69u31YtFcON5Mil68f3YwA',
+        key:         'pk_live_1PC6DwIFBRQg7lwbz84q1OYU',
         address:     true,
         amount:      CartService.totalCartAmount() * 100,
         currency:    'usd',
