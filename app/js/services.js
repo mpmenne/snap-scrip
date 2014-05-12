@@ -122,12 +122,12 @@ snapscripApp.factory('CardService', function($http, $q) {
         {"key":"greatclips", "name":"GreatClips", "path": "img/fashionbug-giftcard.png", "logo": "img/blockbuster-giftcard.jpeg", "percentage": 8, "values": ["25"], "tags":"services, hair"},
         {"key":"honeybakedham", "name":"Honey Baked Ham", "path": "img/honeybakedham-giftcard.jpeg", "logo": "img/honeybakedham-giftcard.jpeg", "percentage": 12, "values": ["25"], "tags":"food, take out"},
         {"key":"thegap", "name":"The Gap", "path": "img/gap-giftcard.jpg", "logo": "img/gap-logo.jpg", "percentage": 14, "values": ["25", "100"], "tags":"clothes"},
-        {"key":"groupon", "name":"Groupon", "path": "img/groupon-giftcard.jpeg", "logo": "img/groupon-giftcard.jpeg", "percentage": 7, "values": ["25"], "tags":"online, deals"},
+        {"key":"groupon", "name":"Groupon", "path": "img/groupon-giftcard.jpg", "logo": "img/groupon-giftcard.jpeg", "percentage": 7, "values": ["25"], "tags":"online, deals"},
         {"key":"guitarcenter", "name":"Guitar Center", "path": "img/guitar-center.jpg", "logo": "img/guitarcenter-logo.svg", "percentage": 4, "values": ["25"], "tags":"music"},
         {"key":"hardees", "name":"Hardees", "path": "img/hardees-giftcard.JPG", "logo": "img/hardees-logo.jpg", "percentage": 5, "values": ["10"], "tags":"food, restaurant"},
-        {"key":"hometownbuffet", "name":"Home Town Buffet", "path": "img/hometownbuffet-giftcard.jpeg", "logo": "img/hometownbuffet-giftcard.jpeg", "percentage": 5, "values": ["25"], "tags":"food, buffet, restaurant"},
+        {"key":"hometownbuffet", "name":"Home Town Buffet", "path": "img/hometownbuffet-giftcard.jpg", "logo": "img/hometownbuffet-giftcard.jpeg", "percentage": 5, "values": ["25"], "tags":"food, buffet, restaurant"},
         {"key":"itunes", "name":"iTunes", "path": "img/itunes-giftcard.jpg", "logo": "img/itunes-logo.jpeg", "percentage": 5, "values": ["15", "25"], "tags":"music"},
-        {"key":"shutterfly", "name":"Shutterfly.com", "path": "img/shuttefly-giftcard.png", "logo": "img/shutterfly-giftcard.png", "percentage": 9, "values": ["25"], "tags":"online, pictures, photos"},
+        {"key":"shutterfly", "name":"Shutterfly.com", "path": "img/shutterfly-giftcard.png", "logo": "img/shutterfly-giftcard.png", "percentage": 9, "values": ["25"], "tags":"online, pictures, photos"},
         {"key":"jcpenny", "name":"JC Penny", "path": "img/jcpenny-giftcard.jpeg", "logo": "img/jcpenny-logo.png", "percentage": 6, "values": ["25", "100"], "tags":"clothes"},
         {"key":"jackinthebox", "name":"Jack in the Box", "path": "img/jackinthebox-giftcard.jpeg", "logo": "img/jackinthebox-giftcard.jpeg", "percentage": 4, "values": ["10"], "tags":"food, fast food"},
 //        {"key":"jiffylube", "name":"Jiffy Lube", "path": "img/jiffylube-giftcard.jpg", "logo": "img/jiffylube-lobibigo.jpeg", "percentage": 8, "values": ["30"], "tags":"car"},
@@ -173,7 +173,7 @@ snapscripApp.factory('CardService', function($http, $q) {
         {"key":"shoecarnival", "name":"Shoe Carnival", "path": "img/shoecarnival-giftcard.jpeg", "logo": "img/shoecarnival-giftcard.jpeg", "percentage": 5, "values": ["25"], "tags":"shoes, mens, womens"},
         {"key":"sportsauthority", "name":"Sports Authority", "path": "img/sportsauthority-giftcard.jpeg", "logo": "img/sportsauthority-giftcard.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"sports, clothes, clothing"},
         {"key":"steaknshake", "name":"Steak n Shake", "path": "img/steaknshake-giftcard.png", "logo": "img/steaknshake-logo.gif", "percentage": 8, "values": ["10"], "tags":"food, restaurant"},
-        {"key":"sweettomatoes", "name":"Sweet Tomatoes", "path": "img/sweettomatoes-giftcard.jpg", "logo": "img/sweettomatoes-giftcard.jpg", "percentage": 8, "values": ["25"], "tags":"food, restaurant, buffet"},
+        {"key":"sweettomatoes", "name":"Sweet Tomatoes", "path": "img/sweettomatos-giftcard.png", "logo": "img/sweettomatoes-giftcard.jpg", "percentage": 8, "values": ["25"], "tags":"food, restaurant, buffet"},
         {"key":"subway", "name":"Subway", "path": "img/subway-giftcard.png", "logo": "img/subway-logo.jpe", "percentage": 3, "values": ["10", "50"], "tags":"food, restaurant"},
         {"key":"tacobell", "name":"Taco Bell", "path": "img/tacobell-giftcard.jpg", "logo": "img/tacobell-logo.jpeg", "percentage": 5, "values": ["10"], "tags":"food, restaurant"},
         {"key":"target", "name":"Target", "path": "img/target-giftcard.jpg", "logo": "img/target-logo.jpeg", "percentage": 2, "values": ["25", "100"], "tags":"home"},
@@ -188,7 +188,7 @@ snapscripApp.factory('CardService', function($http, $q) {
 //        {"key":"williamssonoma", "name":"Williams Sonoma", "path": "img/williams-sonoma.jpg", "logo": "img/williamssonoma-logo.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"home"},
 //        {"key":"zappos", "name":"Zappos.com", "path": "img/zappos-giftcard.jpeg", "logo": "img/zappos-logo.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"clothes, shoes"},
         {"key":"ugas", "name":"UGas", "path": "img/ugas-giftcard.jpg", "logo": "img/ugas-giftcard.jpg", "percentage": 1.5, "values": ["25", "100"], "tags":"gas, convenience"},
-        {"key":"bpamoco", "name":"BP Amoco", "path": "img/bpamaco-giftcard.png", "logo": "img/bpamaco-giftcard.png", "percentage": 1.5, "values": ["50", "100"], "tags":"gas, convenience"},
+        {"key":"bpamoco", "name":"BP Amoco", "path": "img/bpamoco-giftcard.png", "logo": "img/bpamaco-giftcard.png", "percentage": 1.5, "values": ["50", "100"], "tags":"gas, convenience"},
         {"key":"mobil", "name":"Mobil", "path": "img/mobil-giftcard.png", "logo": "img/mobil-giftcard.png", "percentage": 1.5, "values": ["50"], "tags":"gas, convenience"},
         {"key":"dierbergs", "name":"Dierbergs", "path": "img/dierbergs.jpeg", "logo": "img/dierbergs.jpeg", "percentage": 5, "values": ["25", "100"], "tags":"groceries, food, local"},
         {"key":"savealot", "name":"Save a Lot", "path": "img/savealot-giftcard.jpeg", "logo": "img/savealot-giftcard.jpeg", "percentage": 5, "values": ["10"], "tags":"groceries, food, local"}
@@ -225,30 +225,15 @@ snapscripApp.factory('CardService', function($http, $q) {
 });
 
 snapscripApp.factory('OrderService', function() {
-  var completedOrders = [];
+  var completedOrder = {};
   return {
-    'save': function(orderInformation, cardOrders) {
-      var name = orderInformation.firstName + '' + orderInformation.lastName
-      var orderId = name.toLowerCase().replace(' ', '') + Math.floor(Math.random()*11);
-      completedOrders.push({
-        'orderId':orderId,
-        'orderInformation':orderInformation,
-        'orders': cardOrders
-      })
-      return orderId;
+    'save': function(orderInformation) {
+      completedOrder = orderInformation;
     },
-    'getOrder': function(uniqueKey) {
-      var order = _.find(completedOrders, function(completedOrder) { return completedOrder.orderId === uniqueKey})
-      return order;
-    },
-    'confirmOrder': function() {
-      if (completedOrders.length === 0) return false;
-      return completedOrders.pop();
-    },
-    'currentOrder': function() {
-      return completedOrders[completedOrders.length - 1];
+    'completedOrder': function() {
+      return completedOrder;
     }
-  };
+  }
 });
 
 

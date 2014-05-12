@@ -63,7 +63,7 @@
   <div class="main container">
     <div ui-view></div>
 
-    <div ng-if="baseCtrl.$location.url().indexOf('home') != -1 || baseCtrl.$location.url().indexOf('cards') != -1 || baseCtrl.$location.url().indexOf('cart') != -1"">
+    <div ng-if="baseCtrl.$location.url().indexOf('home') != -1 || baseCtrl.$location.url().indexOf('cards') != -1 || baseCtrl.$location.url().indexOf('cart') != -1">
       <div ng-include src='"templates/cardSearch.html"'></div>
     </div>
   </div>

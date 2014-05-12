@@ -83,14 +83,14 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
 //            orderId:'meganmenne-1234',
 //            orderInformation:{firstName:'Megan', lastName:'Menne', phoneNumber:'314 477 1111', rectoryPickup:1, afterMass:1, sendHome:1, childName:'Laura', homeroom:'3rd', checkNumber:1001, checkAmount:100 },
 //            orders:[{'name':'Amazon', 'value':50}, {'name':'Amazon', 'value':50}]}
-          $scope.order = OrderService.currentOrder();
-          $scope.confirmationNumber = $scope.order.orderId;
-          PdfService.getPdf($scope.order).promise.then(function(pdf) {
-            //pdf.save('1234');
-            var pdfSource = pdf.output('datauristring');
-            angular.element('#pdfViewer').append("<iframe frameborder='0' src='" + pdfSource + "' width='650' height='450'></iframe>")
-            $scope.pdfSource = pdfSource;
-          });
+          $scope.order = OrderService.completedOrder();
+          $scope.confirmationNumber = $scope.order.id;
+//          PdfService.getPdf($scope.order).promise.then(function(pdf) {
+//            //pdf.save('1234');
+//            var pdfSource = pdf.output('datauristring');
+//            angular.element('#pdfViewer').append("<iframe frameborder='0' src='" + pdfSource + "' width='650' height='450'></iframe>")
+//            $scope.pdfSource = pdfSource;
+//          });
           $scope.downloadCurrent = function() {
             PdfService.getPdf($scope.order).promise.then(function(pdf) {
               pdf.save($scope.confirmationNumber);
@@ -127,18 +127,15 @@ snapscripApp.controller('ReviewController', function($scope, PdfService, CartSer
     $scope.giftCards = function(cartItem) {
       return cartItem.percentage;
     }
-    $scope.viewLoading = false;
 
     $scope.processPayment = function() {
       console.log('Processing');
       var token = function(res) {
-        $scope.viewLoading = true;
         res.order = {'info':res.card, 'items':$scope.allCartItems(), 'totalCharge':CartService.totalCartAmount() * 100};
-        $http.post('/orders', res).success(function(giftcards) {
-          $scope.viewLoading = false;
+        $http.post('/orders', res).success(function(completedOrder) {
+          OrderService.save(completedOrder);
           LocationService.confirmation();
         }).error(function(data) {
-            $scope.viewLoading = false;
             alert('Error processing credit card payment. \n Please contact the St. Joan of Arc Rectory');
         });
       };
@@ -188,6 +185,7 @@ snapscripApp.controller('ScripController', function($scope, $location, CardServi
   $scope.searchCards = function(ev) {
     if (ev.which==13 || ev.which == 1) {
       $scope.enteredSearchCriteria = $scope.searchCriteria;
+//      $scope.$emit('iso-method', {name:null, params:null})
     }
   }
 

@@ -21,16 +21,10 @@
     </div>
 
     <div class="ui medium images centered ng-cloak" isotope-container ng-cloak >
-      <!--<gcard ng-repeat="giftcard in scripCtrl.allCards() | filter:searchCriteria" isotope-item>-->
-
-      <!--</gcard>-->
-      <!--<gcard ng-repeat="giftcard in scripCtrl.allCards() | filter:enteredSearchCriteria" isotope-item>-->
-      <a id='{{giftcard.key}}' href='/#/cards/{{giftcard.key}}' tags="{{giftcard.tags}}" ng-repeat="giftcard in scripCtrl.allCards() track by giftcard.key| filter:enteredSearchCriteria" >
+      Should say something {{enteredSearchCriteria}}
+      <a id='{{giftcard.key}}' href='/#/cards/{{giftcard.key}}' tags="{{giftcard.tags}}" ng-repeat="giftcard in scripCtrl.allCards() track by giftcard.key" >
         <img class='ui small image' src='{{giftcard.path}}' isotope-item>
       </a>
-      <!--<h2 class='imgText' >{{giftcard.percentage}}%</h2>-->
-      <!--<p ng-class='instructionClass' ng-mouseover='hoverGiftCard()' ng-mouseleave='exitGiftCard()' ng-click='viewCard()'>-->
-      <!--</gcard>-->
     </div>
   </div>
 </div>
