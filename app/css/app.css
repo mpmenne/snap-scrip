@@ -115,6 +115,11 @@ div .centered.button {
     font-size: 2.5rem;
 }
 
+.ui.medium.images .image, .ui.medium.images img, .ui.medium.image {
+    width: 200px;
+    font-size: 1rem;
+}
+
 .orderreview {
     margin:0px auto;
     width: 65%;
