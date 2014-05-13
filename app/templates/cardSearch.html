@@ -2,19 +2,21 @@
   <div ng-controller="ScripController as scripCtrl">
     <div class="ui grid">
       <div class="sixteen wide aligned center column" opt-kind ok-key="filter">
-        <button ok-sel="#starbucks">Starbucks</button>
         <button ok-sel="[tags*='gas']">Gas</button>
+        <button ok-sel="[tags*='groceries']">Groceries</button>
         <button ok-sel="[tags*='local']">Local</button>
         <button ok-sel="[tags*='fast food']">Fast Food</button>
-        <button ok-sel="[tags*='food']">Food</button>
+        <button ok-sel="[tags*='restaurant']">Restaurants</button>
         <button ok-sel="[tags*='clothing']">Clothing</button>
-        <button ok-sel="[tags*='home']">Home</button>
-        <button ok-sel="[tags*='groceries']">Groceries</button>
+        <button ok-sel="[tags*='home goods']">Home Goods</button>
+        <button ok-sel="[tags*='entertainment']">Entertainment</button>
+        <button ok-sel="[tags*='kids']">Kids</button>
+        <button ok-sel="[tags*='online']">Online</button>
         <!--<button ok-sel="local">Local</button>-->
         <button ok-sel="*">All</button>
         <div class="ui huge icon input search">
-          <input type="text" ng-model="searchCriteria"  ng-keypress="searchCards($event)" placeholder="Search for anything...">
-          <i class="circular search icon" ng-click="searchCards($event)"></i>
+          <input type="text" ng-model="searchCriteria"  ng-keypress="searchCards($event)" placeholder="Search for anything..." opt-kind ok-key="filter">
+          <i class="circular search icon" ng-keypress="searchCards($event)" ok-sel="#{{searchCriteria}}, [tags*='{{searchCriteria}}']"></i>
         </div>
         <i class="cart huge link icon" ng-click="baseCtrl.viewCart()"></i>
       </div>

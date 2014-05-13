@@ -185,7 +185,7 @@ snapscripApp.controller('ScripController', function($scope, $location, CardServi
   $scope.searchCards = function(ev) {
     if (ev.which==13 || ev.which == 1) {
       $scope.enteredSearchCriteria = $scope.searchCriteria;
-//      $scope.$emit('iso-method', {name:null, params:null})
+      $scope.$emit('iso-method', {name:null, params:null})
     }
   }
 
