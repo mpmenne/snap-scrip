@@ -211,7 +211,7 @@ snapscripApp.factory('CardService', function($http, $q) {
         {"key":"sallybeauty", "name":"Sally Beauty", "path": "img/sallybeauty-giftcard.jpeg", "logo": "img/sallybeauty-giftcard.jpeg", "percentage": 12, "values": ["25"], "tags":"womens, beauty"},
         {"key":"sears", "name":"Sears", "path": "img/sears-giftcard.jpeg", "logo": "img/sears-giftcard.jpeg", "percentage": 4, "values": ["25", "100"], "tags":"clothing, applicances, mens, womens"},
         {"key":"shoecarnival", "name":"Shoe Carnival", "path": "img/shoecarnival-giftcard.jpeg", "logo": "img/shoecarnival-giftcard.jpeg", "percentage": 5, "values": ["25"], "tags":"shoes, mens, womens"},
-        {"key":"sportsauthority", "name":"Sports Authority", "path": "img/sportsauthority-giftcard.jpeg", "logo": "img/sportsauthority-giftcard.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"sports, clothes, clothing, outdoor"},
+        {"key":"sportsauthority", "name":"Sports Authority", "path": "img/sportsauthority-giftcard.jpeg", "logo": "img/sportsauthority-giftcard.jpeg", "percentage": 8, "values": ["25", "100"], "tags":"sporting goods, clothes, clothing, outdoor"},
         {"key":"schnucks", "name":"Schnucks", "path": "img/schnucks-giftcard.jpeg", "logo": "img/schnucks-giftcard.jpeg", "percentage": 5, "values": ["0"], "tags":"food, groceries"},
         {"key":"steaknshake", "name":"Steak n Shake", "path": "img/steaknshake-giftcard.png", "logo": "img/steaknshake-logo.gif", "percentage": 8, "values": ["10"], "tags":"food, fast food"},
         {"key":"sweettomatoes", "name":"Sweet Tomatoes", "path": "img/sweettomatos-giftcard.png", "logo": "img/sweettomatoes-giftcard.jpg", "percentage": 8, "values": ["25"], "tags":"food, restaurant, buffet"},

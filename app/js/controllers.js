@@ -178,16 +178,26 @@ snapscripApp.controller('ScripController', function($scope, $location, CardServi
     CartService.addItemToCard(giftCard, value);
   };
 
-  scripCtrl.filterIt = function(searchValue) {
-
-  };
-
-  $scope.searchCards = function(ev) {
-    if (ev.which==13 || ev.which == 1) {
-      $scope.enteredSearchCriteria = $scope.searchCriteria;
-      $scope.$emit('iso-method', {name:null, params:null})
-    }
+  $scope.currentFilter = ""
+  $scope.cssquery = function() {
+    return "[id^='" + $scope.searchCriteria + "']" + ",[tags*='" + $scope.searchCriteria + "']";
   }
+
+  $scope.clearSearch = function(filter) {
+    $scope.searchCriteria = "";
+    $scope.currentFilter = filter;
+  }
+
+  $scope.$watch('searchCriteria', function() {
+    if ($scope.searchCriteria) {
+      $('#tempButton').remove();
+      $('.ui.buttons').append('<button id="tempButton" class="hideit ui button categoryButton" ok-sel="' + $scope.cssquery() + '" ng-click="clearSearch()">Search</button>')
+      $('#tempButton').click();
+      $scope.$emit('iso-method', {name:null, params:null})
+    } else {
+      $('#allfilter').click();
+    }
+  });
 
 });
 

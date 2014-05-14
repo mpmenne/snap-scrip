@@ -1,25 +1,31 @@
+
 <div>
   <div ng-controller="ScripController as scripCtrl">
     <div class="ui grid">
-      <div class="sixteen wide aligned center column" opt-kind ok-key="filter">
-        <button ok-sel="[tags*='gas']">Gas</button>
-        <button ok-sel="[tags*='groceries']">Groceries</button>
-        <button ok-sel="[tags*='travel']">Travel</button>
-        <button ok-sel="[tags*='local']">Local</button>
-        <button ok-sel="[tags*='fast food']">Fast Food</button>
-        <button ok-sel="[tags*='restaurant']">Restaurants</button>
-        <button ok-sel="[tags*='clothing']">Clothing</button>
-        <button ok-sel="[tags*='shoes']">Shoes</button>
-        <button ok-sel="[tags*='home goods']">Home Goods</button>
-        <button ok-sel="[tags*='sports']">Sports</button>
-        <button ok-sel="[tags*='entertainment']">Entertainment</button>
-        <button ok-sel="[tags*='kids']">Kids</button>
-        <button ok-sel="[tags*='online']">Online</button>
+      <div class="sixteen wide aligned center column">
+        <div class="ui buttons" opt-kind ok-key="filter">
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='gas']" ng-click="clearSearch('[tags*=\'gas\']')">Gas</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='groceries']" ng-click="clearSearch('[tags*=\'groceries\']')">Groceries</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='travel']" ng-click="clearSearch('[tags*=\'travel\']')">Travel</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='local']" ng-click="clearSearch('[tags*=\'local\']')">Local</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='fast food']" ng-click="clearSearch('[tags*=\'fast food\']')">Fast Food</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='restaurant']" ng-click="clearSearch('[tags*=\'restaurant\']')">Restaurants</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='clothing']" ng-click="clearSearch('[tags*=\'clothing\']')">Clothing</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='shoes']" ng-click="clearSearch('[tags*=\'shoes\']')">Shoes</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='home goods']" ng-click="clearSearch('[tags*=\'home goods\']')">Home Goods</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='sporting goods']" ng-click="clearSearch('[tags*=\'sporting goods\']')">Sports</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='entertainment']" ng-click="clearSearch('[tags*=\'entertainment\']')">Entertainment</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='kids']" ng-click="clearSearch('[tags*=\'kids\']')">Kids</div>
+          <div class="ui toggle button categoryButton" ok-sel="[tags*='online']" ng-click="clearSearch('[tags*=\'online\']')">Online</div>
+          <div class="ui toggle button categoryButton active" ok-sel="*" ng-click="clearSearch()" id="allfilter">All</div>
+        </div>
+        <div class="tempButtons">
+
+        </div>
         <!--<button ok-sel="local">Local</button>-->
-        <button ok-sel="*">All</button>
         <div class="ui huge icon input search">
-          <input type="text" ng-model="searchCriteria"  ng-keypress="searchCards($event)" placeholder="Search for anything..." opt-kind ok-key="filter">
-          <i class="circular search icon" ng-keypress="searchCards($event)" ok-sel="#{{searchCriteria}}, [tags*='{{searchCriteria}}']"></i>
+          <input type="text" ng-model="searchCriteria" ng-keypress="searchCards($event)" placeholder="Search for anything..." opt-kind ok-key="filter">
+          <i class="circular search icon" ok-sel="[tags*='groceries']"></i>
         </div>
         <i class="cart huge link icon" ng-click="baseCtrl.viewCart()"></i>
       </div>
@@ -27,7 +33,7 @@
 
     <div class="ui medium images centered ng-cloak" isotope-container ng-cloak >
       Should say something {{enteredSearchCriteria}}
-      <a id='{{giftcard.key}}' href='/#/cards/{{giftcard.key}}' tags="{{giftcard.tags}}" ng-repeat="giftcard in scripCtrl.allCards() track by giftcard.key" >
+      <a id='{{giftcard.key}}' href='/#/cards/{{giftcard.key}}' tags="{{giftcard.tags}}" ng-repeat="giftcard in scripCtrl.allCards() track by giftcard.key " >
         <img class='ui small image' src='{{giftcard.path}}' isotope-item>
       </a>
     </div>

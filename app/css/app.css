@@ -66,6 +66,10 @@ body {
     display: none;
 }
 
+.hideit {
+    display: none;
+}
+
  .search {
     width: 75%;
     margin-left: auto;
@@ -115,7 +119,7 @@ div .centered.button {
     font-size: 2.5rem;
 }
 
-.ui.medium.images .image, .ui.medium.images img, .ui.medium.image {
+.ui.medium.images .image, .ui.medium    .images img, .ui.medium.image {
     width: 200px;
     font-size: 1rem;
 }
@@ -143,6 +147,10 @@ div .centered.button {
     color: red;
 }
 
+.clear {
+    clear: left;
+}
+
 .green {
     color: green;
 }
@@ -165,6 +173,26 @@ div.block {
 
 .coolLink {
     text-decoration: none;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .categoryButton:nth-child(7n+1) {
+        clear: left;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .categoryButton:nth-child(7n+1) {
+        clear: left;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .categoryButton > div:nth-child(4n+1) {
+        clear: left;
+    }
 }
 
 div > a.coolLink {
