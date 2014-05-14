@@ -43,7 +43,7 @@
       </div>
       <div class="right menu" ng-controller="CartController">
         <div id="giftCardCount" class="item">
-          <a class="coolLink" href="#/cart">Giftcards <span id="giftCardCountNumber" class="bigBold">{{itemsInCart | countAggregate}}</span></a>
+          <a class="coolLink" href="#/cart">Giftcards <span id="giftCardCountNumber" class="bigBold">{{itemsInCart | cardCountAggregate}}</span></a>
         </div>
         <div id="giftCardTotal" class="item">
           <a class="coolLink" href="#/cart">Total <span id="giftCardValueNumber" class="bigBold">${{itemsInCart | valueAggregate}}</span></a>

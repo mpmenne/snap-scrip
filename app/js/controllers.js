@@ -131,12 +131,14 @@ snapscripApp.controller('ReviewController', function($scope, PdfService, CartSer
     $scope.processPayment = function() {
       console.log('Processing');
       var token = function(res) {
-        res.order = {'info':res.card, 'items':$scope.allCartItems(), 'totalCharge':CartService.totalCartAmount() * 100};
+        res.order = {'items':$scope.allCartItems(), 'totalCharge':CartService.totalCartAmount() * 100};
         $http.post('/orders', res).success(function(completedOrder) {
           OrderService.save(completedOrder);
+          CartService.clearCart();
           LocationService.confirmation();
         }).error(function(data) {
-            alert('Error processing credit card payment. \n Please contact the St. Joan of Arc Rectory');
+            if (data.indexOf("502") > -1) { alert ('Looks like our servers are taking a little break. \n  No payment was processed.  \n\n Please check back really soon or send us a note at snapscrip@gmail.com'); return; }
+            alert('Error processing the credit card payment.  \n Please contact snapscrip@gmail.com');
         });
       };
 
@@ -144,7 +146,7 @@ snapscripApp.controller('ReviewController', function($scope, PdfService, CartSer
       console.log('processing order for ' + CartService.totalCartAmount());
 
       StripeCheckout.open({
-        key:         'pk_live_1PC6DwIFBRQg7lwbz84q1OYU',
+        key:         'pk_test_tN69u31YtFcON5Mil68f3YwA',
         address:     true,
         amount:      CartService.totalCartAmount() * 100,
         currency:    'usd',
@@ -231,7 +233,16 @@ snapscripApp.filter('countAggregate', function() {
     return _.size(items);
   }
 });
-snapscripApp.filter('donationAggregate', function() {
+snapscripApp.filter('cardCountAggregate', function() {
+  return function(items) {
+    var count = 0;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].type === 'fee') { continue; }
+      count++;
+    }
+    return count;
+  }
+});snapscripApp.filter('donationAggregate', function() {
   return function(itemsWithValue) {
     return parseFloat(_.reduce(itemsWithValue, function(total, nextItem) {
       total += (parseInt(nextItem.value)  * (nextItem.percentage / 100));
