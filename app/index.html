@@ -25,7 +25,7 @@
     <!--</div>-->
   <!--</div>-->
 
-  <div class="ui fixed transparent inverted main menu">
+  <div class="ui fixed transparent inverted main menu" ng-controller="CartController">
     <div class="container">
       <a class="launch item" href="/">
         <i class="icon list layout"></i>
@@ -39,9 +39,9 @@
         St. Joan of Arc School
       </div>
       <div class="item">
-        <span class="bigBold green">$14,365</span>
+        <span class="bigBold green">${{totalDollarsRaised}}</span>
       </div>
-      <div class="right menu" ng-controller="CartController">
+      <div class="right menu">
         <div id="giftCardCount" class="item">
           <a class="coolLink" href="#/cart">Giftcards <span id="giftCardCountNumber" class="bigBold">{{itemsInCart | cardCountAggregate}}</span></a>
         </div>
@@ -72,6 +72,7 @@
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
   -->
+  <script type="text/javascript" src="socket.io/socket.io.js"></script>
   <script type="text/javascript" src="https://checkout.stripe.com/v2/checkout.js"></script>
   <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
 

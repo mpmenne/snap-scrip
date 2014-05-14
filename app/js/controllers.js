@@ -100,10 +100,11 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
       })
 });
 
-snapscripApp.controller('CartController', function($scope, CartService, LocationService) {
+snapscripApp.controller('CartController', function($scope, CartService, LocationService, socket) {
   var cartCtrl = this;
-  $scope.cartItems = ['a', 'b'];
+  $scope.totalDollarsRaised = 0;
   $scope.itemsInCart = CartService.allCartItems();
+
 
   $scope.removeItem = function(card) {
     CartService.removeItemFromCart(card);
@@ -113,9 +114,13 @@ snapscripApp.controller('CartController', function($scope, CartService, Location
     LocationService.cart();
   };
 
+  socket.on('update total', function(data) {
+    $scope.totalDollarsRaised = data * 100;
+  });
+
 });
 
-snapscripApp.controller('ReviewController', function($scope, PdfService, CartService, OrderService, LocationService, $http) {
+snapscripApp.controller('ReviewController', function($scope, PdfService, CartService, OrderService, LocationService, $http, socket) {
     var reviewCtrl = this;
     var processing = false;
     $scope.generatePdf = PdfService.getPdf;
@@ -136,6 +141,7 @@ snapscripApp.controller('ReviewController', function($scope, PdfService, CartSer
           OrderService.save(completedOrder);
           CartService.clearCart();
           LocationService.confirmation();
+          socket.emit('new purchase', CartService.totalCartAmount() * 100);
         }).error(function(data) {
             if (data.indexOf("502") > -1) { alert ('Looks like our servers are taking a little break. \n  No payment was processed.  \n\n Please check back really soon or send us a note at snapscrip@gmail.com'); return; }
             alert('Error processing the credit card payment.  \n Please contact snapscrip@gmail.com');
