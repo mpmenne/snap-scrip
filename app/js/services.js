@@ -46,7 +46,7 @@ snapscripApp.factory('CartService', function() {
       cartItem.deleted = true;
     },
     'clearCart': function() {
-      orders = [];
+      orders.length = 0;
     },
     'cardCount': function(cardName, cardValue) {
       return _.filter(orders, function(order) { return order.name === cardName && order.value === parseInt(cardValue)}).length;
