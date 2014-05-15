@@ -62,6 +62,13 @@ body {
     cursor: pointer;
 }
 
+.myNavBar {
+    display: block!important;
+    height: auto!important;
+    padding-bottom: 0;
+    overflow: visible!important;
+}
+
 .imageHide {
     display: none;
 }
