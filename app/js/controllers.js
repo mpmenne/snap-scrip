@@ -52,6 +52,7 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
         },
         controller: function($scope, CartService) {
           $scope.addTransactionFee = CartService.addTransactionFee;
+ 	  $scope.transactionFee = CartService.transactionFee;
         }
       })
       .state('review', {
