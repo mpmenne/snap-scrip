@@ -30,8 +30,7 @@
                Cash or Check
                <div class="sub header">We forward you order to the school.
                  <br>Drop your payment off at the rectory or send it with your kids to school.
-                 <!--<br><span class="bigBold">Your order will be placed when payment is received</span>-->
-                 <div class="red" ng-class="{sorry: clicked1, cantsee: !clicked1}">Coming Soon</div>
+                 <br><span class="bigBold">Your order will be placed when payment is received</span>
                 </div>
              </div>
            </h2>
@@ -76,7 +75,7 @@
         </div>
         <div class="four right aligned wide column">
               <h4 class="ui medium header">
-                ${{transactionFee}} Fee
+                ${{transactionFee()}} Fee
               </h4>
         </div>
       </div>
@@ -88,7 +87,7 @@
           </a>
         </div>
         <div class="two left aligned wide column">
-          <a id="reviewOrderButton" class="ui green right labeled icon button" href="/#/review" ng-class="{disabled: clicked1 && !clicked2 && !clicked3}">
+          <a id="reviewOrderButton" class="ui green right labeled icon button" href="/#/review" ng-class="{disabled: !clicked1 && !clicked2 && !clicked3}">
             <i class="right arrow icon"></i>
             Review Order
           </a>

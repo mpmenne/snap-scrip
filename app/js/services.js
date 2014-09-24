@@ -14,7 +14,7 @@ snapscripApp.factory('CartService', function() {
       var total = _.reduce(orders, function(total, item) {
         return total + parseFloat(item.value);
       }, 0);
-      return Math.round((totalAmount * 40) / 100);
+      return Math.round((total * 4) / 100);
   };
   return {
     'allCartItems': function() {
