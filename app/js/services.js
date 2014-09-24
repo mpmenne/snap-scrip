@@ -10,6 +10,12 @@ var snapscripApp = angular.module('snapscripApp_services', []);
 
 snapscripApp.factory('CartService', function() {
   var orders = [];
+  var transactionFee = function() {
+      var total = _.reduce(orders, function(total, item) {
+        return total + parseFloat(item.value);
+      }, 0);
+      return Math.round((totalAmount * 40) / 100);
+  };
   return {
     'allCartItems': function() {
       return orders;
@@ -24,13 +30,14 @@ snapscripApp.factory('CartService', function() {
         percentage: giftcard.percentage
       });
     },
+    'transactionFee': transactionFee,
     'addTransactionFee': function(name, amount) {
       console.log('fee and amount: ' + name + ' ' + ' and ' + amount);
       _.remove(orders, function(order) { return order.name.indexOf('Fee') != -1; });
       if(name && amount) {
         orders.push({
           name: name,
-          value: amount,
+          value: transactionFee(), 
           percentage: 0,
           type: 'fee'
         });
