@@ -30,27 +30,27 @@
           <div class="two fields">
             <div class="field">
               <label>First Name</label>
-              <input placeholder="First Name" type="text">
+              <input placeholder="First Name" type="text" ng-model="person.firstName">
             </div>
             <div class="field">
               <label>Last Name</label>
-              <input placeholder="Last Name" type="text">
+              <input placeholder="Last Name" type="text" ng-model="person.lastName">
             </div>
           </div>
           <div class="two fields">
             <div class="field">
               <label>Telephone Number</label>
-              <input placeholder="ex. (314) 111-111" type="tel" >
+              <input placeholder="ex. (314) 111-111" type="tel" ng-model="person.phoneNumber">
             </div>
             <div class="field">
               <label>Email</label>
-              <input placeholder="Email" type="email">
+              <input placeholder="Email" type="email" ng-model="person.email">
             </div>
           </div>
-          <div class="grouped inline fields">
+          <!--<div class="grouped inline fields">
             <div class="field">
               <div class="ui radio checkbox">
-                <input type="radio" name="pickup">
+                <input type="radio" name="pickup" ng-model="person.pickup">
                 <label>Pick up at Scrip Table after Mass on weekend</label>
               </div>
             </div>
@@ -68,11 +68,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="column">
         <div class="ui fluid form segment">
           <h3 class="ui header">Check Information</h3>
-          <p>Please make your check payable to <span class="bold">St. Joan of Arc</span> for <span class="bold">${{allCartItems() | valueAggregate}}</span></p>
+          <p>Please make your check payable to <span class="bold">St. Joan of Arc</span> for <span class="bold">${{totalCartAmount()}}</span></p>
           <div class="two fields">
             <div class="field">
               <label>Check Amount</label>
@@ -90,7 +90,7 @@
       <div class="row">
         <div class="six wide right aligned column"></div>
         <div class="six wide right aligned column">
-          <a class="ui green right labeled icon button" href="/#/confirmation">
+          <a class="ui green right labeled icon button" ng-click="placeOrder()"  href="/#/confirmation">
             <i class="right arrow icon"></i>
             Complete Order
           </a>
