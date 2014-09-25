@@ -66,6 +66,28 @@ snapscripApp.config(function($stateProvider, $urlRouterProvider) {
         },
         controller: 'ReviewController'
       })
+      .state('billing', {
+	url: '/billing',
+	templateUrl: 'templates/billing.html',
+	resolve: {
+	  CartService: 'CartService',
+	  LocationService: 'LocationService'
+	},
+	controller: function($scope, CartService, LocationService, $http) {
+	  $scope.totalCartAmount = CartService.totalCartAmount;
+	  $scope.person = {};
+	  $scope.placeOrder = function() {
+	    $scope.person.totalAmount = CartService.totalCartAmount();
+	    $scope.person.items = CartService.allCartItems();
+	    $http.post('/cashorders', $scope.person).success(function(completedOrder) {
+ 	      CartService.clearCart();
+ 	      LocationService.confirmation(); 
+	    }).error(function(data) {
+		alert('The website is having some difficulties right now.  Please try again later or email snapscrip@gmail.com')
+	    }) 
+	  }
+	}
+      })
       .state('confirmation', {
         url: '/confirmation',
         templateUrl: 'templates/confirmation.html',
@@ -121,7 +143,7 @@ snapscripApp.controller('CartController', function($scope, CartService, Location
 
 });
 
-snapscripApp.controller('ReviewController', function($scope, PdfService, CartService, OrderService, LocationService, $http, socket) {
+snapscripApp.controller('ReviewController', function($scope, PdfService, CartService, OrderService, LocationService, $http, socket, $location) {
     var reviewCtrl = this;
     var processing = false;
     $scope.generatePdf = PdfService.getPdf;
@@ -151,17 +173,20 @@ snapscripApp.controller('ReviewController', function($scope, PdfService, CartSer
 
 
       console.log('processing order for ' + CartService.totalCartAmount());
-
-      StripeCheckout.open({
-        key:         'pk_test_tN69u31YtFcON5Mil68f3YwA',
-        address:     true,
-        amount:      CartService.totalCartAmount() * 100,
-        currency:    'usd',
-        name:        'Snap Scrip',
-        description: 'St. Joan of Arc Grade School Scrip',
-        panelLabel:  'Checkout',
-        token:       token
-      });
+      if (CartService.hasTransactionFee()) {
+        StripeCheckout.open({
+          key:         'pk_test_tN69u31YtFcON5Mil68f3YwA',
+          address:     true,
+          amount:      CartService.totalCartAmount() * 100,
+          currency:    'usd',
+          name:        'Snap Scrip',
+          description: 'St. Joan of Arc Grade School Scrip',
+          panelLabel:  'Checkout',
+          token:       token
+        });
+      } else {
+	$location.path('/billing');
+      }
     }
 });
 
